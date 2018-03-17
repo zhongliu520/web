@@ -2,3 +2,5 @@
 /nbproject*
 /vendor*
 .env
+composer.lock
+.idea/
