@@ -1,0 +1,4 @@
+查看进程
+ps aux|grep python
+执行后台python命令
+nohup python setTime.py > out.log 2>&1 &
