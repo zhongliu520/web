@@ -30,6 +30,6 @@ class HomeController extends Controller
 
     public function welcome()
     {
-        dd("薛忠");
+        return view('home');
     }
 }
