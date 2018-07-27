@@ -25,4 +25,11 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+
+
+    public function welcome()
+    {
+        dd("薛忠");
+    }
 }
