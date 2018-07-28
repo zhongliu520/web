@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>自己玩</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
 </head>
 <style>
     body
@@ -32,9 +34,16 @@
         height: 700px;
     }
 
+    .img_list
+    {
+        width: 100%;
+    }
+
+
     .img_li{
         width: 33%;
         float: left;
+        overflow: hidden;
     }
 
 </style>
