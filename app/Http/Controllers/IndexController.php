@@ -9,21 +9,12 @@
 namespace App\Http\Controllers;
 
 
-class IndexController extends Controller
+class IndexController extends  Controller
 {
-
-
-    private $str;
 
     public function index()
     {
-        dd($this->getStr());
-    }
-
-
-    public function getStr():bool
-    {
-        return false;
+        return view("myself/index");
     }
 
 }
