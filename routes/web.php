@@ -30,3 +30,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
     Route::get('login', 'UserController@login');
 
 });
+
+
+Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
+
+    Route::get('check/code', 'CheackCodeController@index');
+
+});

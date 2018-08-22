@@ -51,15 +51,31 @@
         <h3 class="form-title font-green">登入</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
-            <span> Enter any username and password. </span>
+            <span> 请输入账号或密码。 </span>
         </div>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">账号</label>
-            <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="账号" name="username" /> </div>
+            <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="账号" name="username" />
+        </div>
+        <div class="form-group" style="overflow: hidden">
+            <label class="control-label visible-ie8 visible-ie9">验证码</label>
+            <div style="width: 60%;float: left;">
+                <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="验证码" name="password" />
+            </div>
+            <style>
+                .check_code img{
+                    width: 100%;
+                }
+            </style>
+            <div class="check_code" style="width: 40%;float: left;height: 43px;position: relative;">
+                {!! captcha_img() !!}
+            </div>
+        </div>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">密码</label>
-            <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" /> </div>
+            <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" />
+        </div>
         <div class="form-actions">
             <button type="submit" class="btn green uppercase">登入</button>
             <label class="rememberme check">
@@ -413,5 +429,27 @@
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <!-- END THEME LAYOUT SCRIPTS -->
 </body>
+
+<script>
+    $(function(){
+        $(".check_code").on("click", function(){
+
+            var url = $(this).find("img").attr("src");
+            url = url.replace(/^(http[^\?]+)\?.*/, "$1");
+
+            var str = "abcdefghijklmnobqrstuvwxyzABCDEFGHIJKLMNOBQRSTUVWXYZ";
+            console.log(str.length);
+            var temp_str = "";
+            for(var i=0; i<5; i++)
+            {
+                temp_str += str[parseInt((str.length)*Math.random())];
+            }
+
+            url = (url + "?" + temp_str);
+
+            $(this).find("img").attr("src", url);
+        });
+    });
+</script>
 
 </html>
