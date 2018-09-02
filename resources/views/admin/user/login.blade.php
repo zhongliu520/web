@@ -47,7 +47,7 @@
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" action="index.html" method="post">
+    <form class="login-form" action="/admin/login" method="post">
         <h3 class="form-title font-green">登入</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
@@ -119,7 +119,7 @@
     </form>
     <!-- END FORGOT PASSWORD FORM -->
     <!-- BEGIN REGISTRATION FORM -->
-    <form class="register-form" action="index.html" method="post">
+    <form class="register-form" action="/admin/login" method="post">
         <h3 class="font-green">Sign Up</h3>
         <p class="hint"> Enter your personal details below: </p>
         <div class="form-group">

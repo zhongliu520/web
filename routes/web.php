@@ -27,13 +27,21 @@ Route::get('index', 'IndexController@index');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
 
-    Route::get('login', 'UserController@login');
+    Route::get('/index', 'UserController@index');
 
+    Route::post('/login', 'UserController@login');
+
+    Route::post('/logout', 'UserController@logout');
+
+    Route::group(['middleware'=>['auth.user']], function(){
+
+        Route::get('home', 'UserController@home');
+    });
 });
 
 
-Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
-
-    Route::get('check/code', 'CheackCodeController@index');
-
-});
+//Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
+//
+//    Route::get('check/code', 'CheackCodeController@index');
+//
+//});
