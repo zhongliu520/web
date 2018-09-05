@@ -47,7 +47,7 @@
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" action="/admin/login" method="post">
+    <form action="/admin/login" method="post" onsubmit="return false;">
         <h3 class="form-title font-green">登入</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
@@ -61,7 +61,7 @@
         <div class="form-group" style="overflow: hidden">
             <label class="control-label visible-ie8 visible-ie9">验证码</label>
             <div style="width: 60%;float: left;">
-                <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="验证码" name="password" />
+                <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="验证码" name="captcha" />
             </div>
             <style>
                 .check_code img{
@@ -69,7 +69,7 @@
                 }
             </style>
             <div class="check_code" style="width: 40%;float: left;height: 43px;position: relative;">
-                {!! captcha_img() !!}
+                <img src="{{ captcha_src() }}" />
             </div>
         </div>
         <div class="form-group">
@@ -401,6 +401,7 @@
     <!-- END REGISTRATION FORM -->
 </div>
 <div class="copyright"> 2014 © Metronic. Admin Dashboard Template. </div>
+
 <!--[if lt IE 9]>
 <script src="/admin/assets/global/plugins/respond.min.js"></script>
 <script src="/admin/assets/global/plugins/excanvas.min.js"></script>
@@ -425,29 +426,91 @@
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="/admin/assets/pages/scripts/login.min.js" type="text/javascript"></script>
+
+<script src="/admin/assets/pages/layer/layer.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <!-- END THEME LAYOUT SCRIPTS -->
 </body>
 
 <script>
+
+    var is_request = false;
+    function requestAjax(obj, callSuccess, callError)
+    {
+        if(is_request)
+            return false;
+
+        is_request = true;
+
+        $.ajax({
+            "url": obj.url,
+            "data": obj.data,
+            "type": obj.method,
+            "dataType": "json",
+            "success": function(json){
+                is_request = false;
+
+                if(json.code == 200)
+                {
+                    callSuccess(json);
+                }else
+                {
+
+                    layer.alert(json.msg, {
+                        icon: 2,
+                        skin: 'layui-layer-lan' //样式类名
+                        ,closeBtn: 0
+                    });
+
+
+                    if(!!callError)
+                    {
+                        callError(json);
+                    }
+                }
+            },
+            "error": function(){
+                is_request = false;
+
+                layer.alert("系统错误，请联系管理员", {
+                    icon: 2,
+                    skin: 'layui-layer-lan' //样式类名
+                    ,closeBtn: 0
+                });
+            }
+        });
+    }
+
+    
+    function changeCheckCode(that)
+    {
+        var url = "/admin/captcha-src";
+
+        requestAjax({url: url, method: "get", data:{}}, function(data){
+            that.find("img").attr("src", data.data.captcha_src);
+        });
+    }
+
+
     $(function(){
         $(".check_code").on("click", function(){
 
-            var url = $(this).find("img").attr("src");
-            url = url.replace(/^(http[^\?]+)\?.*/, "$1");
+            changeCheckCode($(this));
 
-            var str = "abcdefghijklmnobqrstuvwxyzABCDEFGHIJKLMNOBQRSTUVWXYZ";
-            console.log(str.length);
-            var temp_str = "";
-            for(var i=0; i<5; i++)
-            {
-                temp_str += str[parseInt((str.length)*Math.random())];
-            }
+        });
 
-            url = (url + "?" + temp_str);
+        $(".btn.green.uppercase").on("click", function(){
+            var that = $(this);
+            var url = that.parents("form").attr("action");
+            var method = that.parents("form").attr("method");
+            var data = that.parents("form").serialize();
 
-            $(this).find("img").attr("src", url);
+            requestAjax({url: url, method: method, data:data}, function(data){
+                window.location.href = "/admin/home";
+            },function(){
+                changeCheckCode($(".check_code"));
+            });
         });
     });
 </script>

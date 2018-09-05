@@ -27,11 +27,13 @@ Route::get('index', 'IndexController@index');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
 
-    Route::get('/index', 'UserController@index');
+    Route::get('index', 'UserController@index');
 
-    Route::post('/login', 'UserController@login');
+    Route::post('login', 'UserController@login');
 
-    Route::post('/logout', 'UserController@logout');
+    Route::get('captcha-src', 'UserController@getCaptchaSrc');
+
+    Route::get('logout', 'UserController@logout');
 
     Route::group(['middleware'=>['auth.user']], function(){
 

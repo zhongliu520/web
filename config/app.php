@@ -161,6 +161,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Mews\Captcha\CaptchaServiceProvider::class,
+
+        App\Providers\ApplicationServiceProvider::class,
     ],
 
     /*
@@ -209,6 +211,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'AjaxService' => \App\Facades\Admin\Common\Asynchronous\AjaxFacade::class,
 
     ],
 

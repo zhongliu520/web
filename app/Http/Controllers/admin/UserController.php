@@ -10,8 +10,13 @@ namespace App\Http\Controllers\admin;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Session\Store as Session;
 
+use AjaxService;
 use Auth;
+
 
 class UserController extends Controller
 {
@@ -28,17 +33,26 @@ class UserController extends Controller
         dd(Auth::guard("admin")->user());
     }
 
-    public function login()
+    public function login(Request $request, Session $session)
     {
         $username = request("username");
         $password = request("password");
-//        dd(123);
-        if(!Auth::guard("admin")->attempt(['email' => $username, 'password' => $password]))
+
+        AjaxService::setMsg("登入成功！");
+        if(!captcha_check($request->input("captcha")))
         {
-            return redirect("admin/index");
+            AjaxService::setCode(403);
+            AjaxService::setMsg("验证码错误！");
+
         }
 
-        return redirect("admin/home");
+        if(!Auth::guard("admin")->attempt(['email' => $username, 'password' => $password]))
+        {
+            AjaxService::setCode(403);
+            AjaxService::setMsg("账号或密码错误！");
+        }
+
+        return AjaxService::responseJson();
     }
 
 
@@ -47,6 +61,14 @@ class UserController extends Controller
         Auth::guard("admin")->logout();
 
         return redirect("admin/home");
+    }
+
+
+    public function getCaptchaSrc()
+    {
+
+        AjaxService::setData(["captcha_src" => captcha_src()]);
+        return AjaxService::responseJson();
     }
 
 }
