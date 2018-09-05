@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
+@extends('admin.layouts.main')
 
-<head>
-    <meta charset="utf-8" />
-    <title>后台管理系统</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
+@section('head')
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <link href="/admin/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -32,11 +20,62 @@
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="/admin/assets/pages/css/login.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL STYLES -->
-    <!-- BEGIN THEME LAYOUT STYLES -->
-    <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" /> </head>
-<!-- END HEAD -->
+@endsection
 
+
+@section('foot')
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="/admin/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="/admin/assets/global/scripts/app.min.js" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/admin/assets/pages/scripts/login.min.js" type="text/javascript"></script>
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <!-- END THEME LAYOUT SCRIPTS -->
+    <script>
+
+        function changeCheckCode(that)
+        {
+            var url = "/admin/captcha-src";
+
+            requestAjax({url: url, method: "get", data:{}}, function(data){
+                that.find("img").attr("src", data.data.captcha_src);
+            });
+        }
+
+
+        $(function(){
+            $(".check_code").on("click", function(){
+
+                changeCheckCode($(this));
+
+            });
+
+            $(".btn.green.uppercase").on("click", function(){
+                var that = $(this);
+                var url = that.parents("form").attr("action");
+                var method = that.parents("form").attr("method");
+                var data = that.parents("form").serialize();
+
+                requestAjax({url: url, method: method, data:data}, function(data){
+                    window.location.href = "/admin/home";
+                },function(){
+                    changeCheckCode($(".check_code"));
+                });
+            });
+        });
+    </script>
+
+@endsection
+
+
+@section('content')
 <body class=" login">
 <!-- BEGIN LOGO -->
 <div class="logo">
@@ -402,117 +441,5 @@
 </div>
 <div class="copyright"> 2014 © Metronic. Admin Dashboard Template. </div>
 
-<!--[if lt IE 9]>
-<script src="/admin/assets/global/plugins/respond.min.js"></script>
-<script src="/admin/assets/global/plugins/excanvas.min.js"></script>
-<![endif]-->
-<!-- BEGIN CORE PLUGINS -->
-<script src="/admin/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="/admin/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script src="/admin/assets/global/scripts/app.min.js" type="text/javascript"></script>
-<!-- END THEME GLOBAL SCRIPTS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="/admin/assets/pages/scripts/login.min.js" type="text/javascript"></script>
-
-<script src="/admin/assets/pages/layer/layer.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
-<!-- BEGIN THEME LAYOUT SCRIPTS -->
-<!-- END THEME LAYOUT SCRIPTS -->
 </body>
-
-<script>
-
-    var is_request = false;
-    function requestAjax(obj, callSuccess, callError)
-    {
-        if(is_request)
-            return false;
-
-        is_request = true;
-
-        $.ajax({
-            "url": obj.url,
-            "data": obj.data,
-            "type": obj.method,
-            "dataType": "json",
-            "success": function(json){
-                is_request = false;
-
-                if(json.code == 200)
-                {
-                    callSuccess(json);
-                }else
-                {
-
-                    layer.alert(json.msg, {
-                        icon: 2,
-                        skin: 'layui-layer-lan' //样式类名
-                        ,closeBtn: 0
-                    });
-
-
-                    if(!!callError)
-                    {
-                        callError(json);
-                    }
-                }
-            },
-            "error": function(){
-                is_request = false;
-
-                layer.alert("系统错误，请联系管理员", {
-                    icon: 2,
-                    skin: 'layui-layer-lan' //样式类名
-                    ,closeBtn: 0
-                });
-            }
-        });
-    }
-
-
-    function changeCheckCode(that)
-    {
-        var url = "/admin/captcha-src";
-
-        requestAjax({url: url, method: "get", data:{}}, function(data){
-            that.find("img").attr("src", data.data.captcha_src);
-        });
-    }
-
-
-    $(function(){
-        $(".check_code").on("click", function(){
-
-            changeCheckCode($(this));
-
-        });
-
-        $(".btn.green.uppercase").on("click", function(){
-            var that = $(this);
-            var url = that.parents("form").attr("action");
-            var method = that.parents("form").attr("method");
-            var data = that.parents("form").serialize();
-
-            requestAjax({url: url, method: method, data:data}, function(data){
-                window.location.href = "/admin/home";
-            },function(){
-                changeCheckCode($(".check_code"));
-            });
-        });
-    });
-</script>
-
-</html>
+@endsection

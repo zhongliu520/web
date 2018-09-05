@@ -1,38 +1,7 @@
-<!DOCTYPE html>
-<!--
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
-Version: 4.5.5
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
+@extends('admin.layouts.main')
 
-<head>
-    <meta charset="utf-8" />
-    <title>Metronic | Dashboard</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link href="/admin/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="/admin/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="/admin/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/admin/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <link href="/admin/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-    <!-- END GLOBAL MANDATORY STYLES -->
+
+@section('head')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="/admin/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="/admin/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
@@ -48,9 +17,10 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="/admin/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="/admin/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" /> </head>
-<!-- END HEAD -->
+@endsection
 
+<!-- END HEAD -->
+@section('content')
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
@@ -391,7 +361,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <i class="icon-lock"></i> Lock Screen </a>
                         </li>
                         <li>
-                            <a href="page_user_login_1.html">
+                            <a href="/admin/logout">
                                 <i class="icon-key"></i> Log Out </a>
                         </li>
                     </ul>
@@ -1184,63 +1154,53 @@ License: You must have a valid license purchased only from themeforest(the above
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-<!-- END FOOTER -->
-<!--[if lt IE 9]>
-<script src="/admin/assets/global/plugins/respond.min.js"></script>
-<script src="/admin/assets/global/plugins/excanvas.min.js"></script>
-<![endif]-->
-<!-- BEGIN CORE PLUGINS -->
-<script src="/admin/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="/admin/assets/global/plugins/moment.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-<script src="/admin/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script src="/admin/assets/global/scripts/app.min.js" type="text/javascript"></script>
-<!-- END THEME GLOBAL SCRIPTS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="/admin/assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
-<!-- BEGIN THEME LAYOUT SCRIPTS -->
-<script src="/admin/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
-<script src="/admin/assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
-<script src="/admin/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
-<!-- END THEME LAYOUT SCRIPTS -->
-</body>
 
-</html>
+
+
+</body>
+@endsection
+
+@section('foot')
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="/admin/assets/global/plugins/moment.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="/admin/assets/global/scripts/app.min.js" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/admin/assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="/admin/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+@endsection

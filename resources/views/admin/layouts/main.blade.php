@@ -34,6 +34,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="/admin/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
     <link href="/admin/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
+    @yield('head')
 
     <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
@@ -56,4 +57,59 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="/admin/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
     <!-- END CORE PLUGINS -->
 
+    <script src="/admin/assets/pages/layer/layer.js" type="text/javascript"></script>
+
+    @yield('foot')
+
+    <script>
+
+    var is_request = false;
+    function requestAjax(obj, callSuccess, callError)
+    {
+        if(is_request)
+            return false;
+
+        is_request = true;
+
+        $.ajax({
+            "url": obj.url,
+            "data": obj.data,
+            "type": obj.method,
+            "dataType": "json",
+            "success": function(json){
+                is_request = false;
+
+                if(json.code == 200)
+                {
+                    callSuccess(json);
+                }else
+                {
+
+                    layer.alert(json.msg, {
+                        icon: 2,
+                        skin: 'layui-layer-lan' //样式类名
+                        ,closeBtn: 0
+                    });
+
+
+                    if(!!callError)
+                    {
+                        callError(json);
+                    }
+                }
+            },
+            "error": function(){
+                is_request = false;
+
+                layer.alert("系统错误，请联系管理员", {
+                    icon: 2,
+                    skin: 'layui-layer-lan' //样式类名
+                    ,closeBtn: 0
+                });
+            }
+        });
+    }
+
+
+</script>
 </html>
