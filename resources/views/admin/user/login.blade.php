@@ -482,7 +482,7 @@
         });
     }
 
-    
+
     function changeCheckCode(that)
     {
         var url = "/admin/captcha-src";

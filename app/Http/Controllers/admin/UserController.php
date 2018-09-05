@@ -30,7 +30,8 @@ class UserController extends Controller
     public function home()
     {
 //        Auth::guard("admin")->logout();
-        dd(Auth::guard("admin")->user());
+//        dd(Auth::guard("admin")->user());
+        return view("admin.user.home");
     }
 
     public function login(Request $request, Session $session)
