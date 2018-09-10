@@ -33,7 +33,7 @@
     <script src="/admin/assets/global/scripts/app.min.js" type="text/javascript"></script>
     <!-- END THEME GLOBAL SCRIPTS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="/admin/assets/pages/scripts/login.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/pages/scripts/login.js" type="text/javascript"></script>
 
     <!-- END PAGE LEVEL SCRIPTS -->
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
@@ -69,6 +69,22 @@
                     changeCheckCode($(".check_code"));
                 });
             });
+
+            $('.login-form input').keypress(function(e) {
+                if (e.which == 13) {
+                    var that = $(this);
+                    var url = that.parents("form").attr("action");
+                    var method = that.parents("form").attr("method");
+                    var data = that.parents("form").serialize();
+
+                    requestAjax({url: url, method: method, data:data}, function(data){
+                        window.location.href = "/admin/home";
+                    },function(){
+                        changeCheckCode($(".check_code"));
+                    });
+                    return false;
+                }
+            });
         });
     </script>
 
@@ -86,7 +102,7 @@
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form action="/admin/login" method="post" onsubmit="return false;">
+    <form action="/admin/login" class="login-form" method="post" onsubmit="return false;">
         <h3 class="form-title font-green">登入</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
@@ -145,6 +161,8 @@
         {{--</div>--}}
     </form>
     <!-- END LOGIN FORM -->
+
+
     <!-- BEGIN FORGOT PASSWORD FORM -->
     <form class="forget-form" action="index.html" method="post">
         <h3 class="font-green">忘记密码 ?</h3>
@@ -157,6 +175,7 @@
         </div>
     </form>
     <!-- END FORGOT PASSWORD FORM -->
+
     <!-- BEGIN REGISTRATION FORM -->
     <form class="register-form" action="/admin/login" method="post">
         <h3 class="font-green">Sign Up</h3>

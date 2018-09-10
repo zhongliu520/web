@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 use App\Services\Admin\Common\Asynchronous\AjaxService;
 
 class ApplicationServiceProvider extends ServiceProvider
@@ -14,7 +15,12 @@ class ApplicationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+        View::composer(
+            ['admin.layouts.left_meun'],
+            'App\Http\ViewComposers\ProfileComposer'
+        );
+
     }
 
     /**
