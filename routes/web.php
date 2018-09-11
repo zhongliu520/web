@@ -38,6 +38,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
     Route::group(['middleware'=>['auth.user']], function(){
 
         Route::get('home', 'UserController@home');
+
+        Route::get('meun/index', 'MeunController@index');
+
+        Route::get('meun/list', 'MeunController@showList');
     });
 });
 

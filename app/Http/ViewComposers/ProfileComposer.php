@@ -25,7 +25,7 @@ class ProfileComposer
 
     public function getMeuns()
     {
-        $res = Meuns::all();
+        $res = Meuns::orderBy("sort", "asc")->get();
 
         $res = $res->toArray();
 
@@ -35,7 +35,15 @@ class ProfileComposer
         {
             if($v["pid"] == 0)
             {
-                $v["chil"] = $this->handleData($v["id"], $res);
+                $tempRes = $this->handleData($v["id"], $res);
+
+                if(!empty($tempRes["meuns"]))
+                {
+
+                    $v["active"] = $tempRes["active"];
+                }
+                $v["chil"] = $tempRes["meuns"];
+
                 $meuns[] = $v;
             }
         }
@@ -49,10 +57,17 @@ class ProfileComposer
     {
         $meuns = [];
 
+        $isActive = 0;
+
         foreach($data as $k=>$v)
         {
             if($v["pid"] == $id)
             {
+                if($_SERVER["REDIRECT_URL"] == $v["url"])
+                {
+                    $v["active"] = 1;
+                    $isActive = "1";
+                }
                 $meuns[] = $v;
             }
         }
@@ -61,13 +76,20 @@ class ProfileComposer
         {
             foreach($meuns as $k=>$v)
             {
-                $v["chil"] = $this->handleData($v["id"], $data);
+                $tempRes = $this->handleData($v["id"], $data);
+
+                if(!empty($tempRes["meuns"]))
+                {
+
+                    $v["active"] = $tempRes["active"];
+                }
+                $v["chil"] = $tempRes["meuns"];
 
                 $meuns[$k] = $v;
             }
         }
 
-        return $meuns;
+        return ["active"=>$isActive, "meuns" => $meuns];
     }
 
 }

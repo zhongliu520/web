@@ -17,7 +17,7 @@ class ApplicationServiceProvider extends ServiceProvider
     {
 
         View::composer(
-            ['admin.layouts.left_meun'],
+            ['admin.layouts.common_public'],
             'App\Http\ViewComposers\ProfileComposer'
         );
 
