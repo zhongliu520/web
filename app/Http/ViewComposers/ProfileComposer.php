@@ -9,6 +9,8 @@ use App\Models\Admin\Meuns;
 class ProfileComposer
 {
 
+    private $pageBar = [];
+
     /**
      * 绑定数据到视图.
      *
@@ -19,7 +21,9 @@ class ProfileComposer
     {
         $meuns = $this->getMeuns();
 
-        $view->with('meuns', $meuns);
+        array_multisort(array_column($this->pageBar,'sort'),SORT_ASC, $this->pageBar);
+
+        $view->with('meunData', ["meuns"=>$meuns, "pageBar"=>$this->pageBar]);
     }
 
 
@@ -39,6 +43,10 @@ class ProfileComposer
 
                 if(!empty($tempRes["meuns"]))
                 {
+                    if($tempRes["active"] == 1)
+                    {
+                        array_push($this->pageBar, ["name"=>$v["name"], "url"=>$v["url"], "sort"=>$v["sort"]]);
+                    }
 
                     $v["active"] = $tempRes["active"];
                 }
@@ -66,6 +74,7 @@ class ProfileComposer
                 if($_SERVER["REDIRECT_URL"] == $v["url"])
                 {
                     $v["active"] = 1;
+                    array_push($this->pageBar, ["name"=>$v["name"], "url"=>$v["url"], "sort"=>$v["sort"]]);
                     $isActive = "1";
                 }
                 $meuns[] = $v;

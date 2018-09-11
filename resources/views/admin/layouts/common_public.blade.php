@@ -147,7 +147,7 @@
                     <div class="sidebar-toggler"> </div>
                     <!-- END SIDEBAR TOGGLER BUTTON -->
                 </li>
-                @foreach($meuns as $v)
+                @foreach($meunData["meuns"] as $v)
 
                     <li class="nav-item start <?php echo $v["active"]==1? "active open": "";?>">
                         <a href="javascript:;" class="nav-link nav-toggle">
@@ -165,5 +165,28 @@
         </div>
 
     </div>
+
+@endsection
+
+@section('page_bar')
+
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            @foreach($meunData["pageBar"] as $k=>$v)
+                @if(($k+1)<count($meunData["pageBar"]))
+                <li>
+                    <a href="{{ $v["url"] }}">{{ $v["name"] }}</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                @else
+                    <li>
+                        <span>{{ $v["name"] }}</span>
+                    </li>
+                @endif
+            @endforeach
+        </ul>
+
+    </div>
+    <!-- END PAGE BAR -->
 
 @endsection
