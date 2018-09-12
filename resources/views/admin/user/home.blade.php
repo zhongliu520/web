@@ -14,7 +14,7 @@
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
 
-    @yield('left_meun')
+    @yield('left_menu')
 
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">

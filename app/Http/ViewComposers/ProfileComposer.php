@@ -4,7 +4,7 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Models\Admin\Meuns;
+use App\Models\Admin\Menus;
 
 class ProfileComposer
 {
@@ -19,21 +19,21 @@ class ProfileComposer
      */
     public function compose(View $view)
     {
-        $meuns = $this->getMeuns();
+        $menus = $this->getMenus();
 
         array_multisort(array_column($this->pageBar,'sort'),SORT_ASC, $this->pageBar);
 
-        $view->with('meunData', ["meuns"=>$meuns, "pageBar"=>$this->pageBar]);
+        $view->with('menuData', ["menus"=>$menus, "pageBar"=>$this->pageBar]);
     }
 
 
-    public function getMeuns()
+    public function getMenus()
     {
-        $res = Meuns::orderBy("sort", "asc")->get();
+        $res = Menus::orderBy("sort", "asc")->get();
 
         $res = $res->toArray();
 
-        $meuns = [];
+        $menus = [];
 
         foreach($res as $k=>$v)
         {
@@ -41,7 +41,7 @@ class ProfileComposer
             {
                 $tempRes = $this->handleData($v["id"], $res);
 
-                if(!empty($tempRes["meuns"]))
+                if(!empty($tempRes["menus"]))
                 {
                     if($tempRes["active"] == 1)
                     {
@@ -50,20 +50,20 @@ class ProfileComposer
 
                     $v["active"] = $tempRes["active"];
                 }
-                $v["chil"] = $tempRes["meuns"];
+                $v["chil"] = $tempRes["menus"];
 
-                $meuns[] = $v;
+                $menus[] = $v;
             }
         }
 
-        return $meuns;
+        return $menus;
     }
 
 
 
     public function handleData($id, $data)
     {
-        $meuns = [];
+        $menus = [];
 
         $isActive = 0;
 
@@ -77,28 +77,28 @@ class ProfileComposer
                     array_push($this->pageBar, ["name"=>$v["name"], "url"=>$v["url"], "sort"=>$v["sort"]]);
                     $isActive = "1";
                 }
-                $meuns[] = $v;
+                $menus[] = $v;
             }
         }
 
-        if(!empty($meuns))
+        if(!empty($menus))
         {
-            foreach($meuns as $k=>$v)
+            foreach($menus as $k=>$v)
             {
                 $tempRes = $this->handleData($v["id"], $data);
 
-                if(!empty($tempRes["meuns"]))
+                if(!empty($tempRes["menus"]))
                 {
 
                     $v["active"] = $tempRes["active"];
                 }
-                $v["chil"] = $tempRes["meuns"];
+                $v["chil"] = $tempRes["menus"];
 
-                $meuns[$k] = $v;
+                $menus[$k] = $v;
             }
         }
 
-        return ["active"=>$isActive, "meuns" => $meuns];
+        return ["active"=>$isActive, "menus" => $menus];
     }
 
 }

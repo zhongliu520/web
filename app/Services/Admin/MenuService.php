@@ -3,9 +3,9 @@
 namespace App\Services\Admin;
 
 
-use App\Models\Admin\Meuns;
+use App\Models\Admin\Menus;
 
-class MeunService
+class MenuService
 {
 
     private $start=0;
@@ -48,7 +48,7 @@ class MeunService
     public function getList()
     {
 
-        return Meuns::skip($this->getStart())->take($this->getLength())->get();
+        return Menus::skip($this->getStart())->take($this->getLength())->get();
 
     }
 

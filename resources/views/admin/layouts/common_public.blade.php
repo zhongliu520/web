@@ -110,7 +110,7 @@
     <!-- END THEME LAYOUT SCRIPTS -->
 @endsection
 
-<?php function showMeunLi($chils){?>
+<?php function showMenuLi($chils){?>
     <?php if(!empty($chils)){?>
         <ul class="sub-menu">
             <?php foreach($chils as $v){?>
@@ -127,14 +127,14 @@
                         <span class="title">{{ $v["name"]  }}</span>
                         <span class="selected"></span>
                     </a>
-                    <?php showMeunLi($v["chil"])?>
+                    <?php showMenuLi($v["chil"])?>
                 </li>
             <?php }?>
         </ul>
     <?php }?>
 <?php }?>
 
-@section('left_meun')
+@section('left_menu')
 
     <div class="page-sidebar-wrapper">
 
@@ -147,7 +147,7 @@
                     <div class="sidebar-toggler"> </div>
                     <!-- END SIDEBAR TOGGLER BUTTON -->
                 </li>
-                @foreach($meunData["meuns"] as $v)
+                @foreach($menuData["menus"] as $v)
 
                     <li class="nav-item start <?php echo $v["active"]==1? "active open": "";?>">
                         <a href="javascript:;" class="nav-link nav-toggle">
@@ -156,7 +156,7 @@
                             <span class="selected"></span>
                             <span class="arrow open"></span>
                         </a>
-                        <?php showMeunLi($v["chil"])?>
+                        <?php showMenuLi($v["chil"])?>
                     </li>
 
                 @endforeach
@@ -172,8 +172,8 @@
 
     <div class="page-bar">
         <ul class="page-breadcrumb">
-            @foreach($meunData["pageBar"] as $k=>$v)
-                @if(($k+1)<count($meunData["pageBar"]))
+            @foreach($menuData["pageBar"] as $k=>$v)
+                @if(($k+1)<count($menuData["pageBar"]))
                 <li>
                     <a href="{{ $v["url"] }}">{{ $v["name"] }}</a>
                     <i class="fa fa-circle"></i>

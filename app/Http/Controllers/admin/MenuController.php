@@ -4,12 +4,12 @@ namespace App\Http\Controllers\admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Services\Admin\MeunService;
+use App\Services\Admin\MenuService;
 
 use Auth;
 use AjaxService;
 
-class MeunController extends Controller
+class MenuController extends Controller
 {
 
     public function index()
@@ -19,10 +19,10 @@ class MeunController extends Controller
 
     public function showList()
     {
-        $meunService = new MeunService();
+        $meunService = new MenuService();
 
-        AjaxService::setMsg("操作成功!");
-        AjaxService::setData($meunService->getList());
+        MenuService::setMsg("操作成功!");
+        MenuService::setData($meunService->getList());
 
         return AjaxService::responseJson();
     }

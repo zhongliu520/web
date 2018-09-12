@@ -39,9 +39,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
 
         Route::get('home', 'UserController@home');
 
-        Route::get('meun/index', 'MeunController@index');
+        Route::get('meun/index', 'MenuController@index');
 
-        Route::get('meun/list', 'MeunController@showList');
+        Route::get('meun/list', 'MenuController@showList');
     });
 });
 
