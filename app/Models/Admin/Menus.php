@@ -18,4 +18,14 @@ class Menus extends Model
         return $this->hasMany('App\Models\Admin\Menus', 'pid', 'id');
     }
 
+    public function menus_roles()
+    {
+        return $this->hasMany(MenusRoles::class, 'menu_id', 'id');
+    }
+
+    public function menus_users()
+    {
+        return $this->hasMany(MenusUsers::class, 'menu_id', 'id');
+    }
+
 }

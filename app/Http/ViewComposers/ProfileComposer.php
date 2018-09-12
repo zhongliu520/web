@@ -6,6 +6,8 @@ namespace App\Http\ViewComposers;
 use Illuminate\View\View;
 use App\Models\Admin\Menus;
 
+use Auth;
+
 class ProfileComposer
 {
 
@@ -29,7 +31,15 @@ class ProfileComposer
 
     public function getMenus()
     {
-        $res = Menus::orderBy("sort", "asc")->get();
+        $userInfo = Auth::guard("admin")->user()->toArray();
+
+        $res = Menus::orWhereHas("menus_roles", function($query) use ($userInfo){
+            $query->whereHas("user_roles", function ($query)  use ($userInfo) {
+                $query->where("user_id", $userInfo["id"]);
+            });
+        })->orWhereHas("menus_users", function($query) use ($userInfo){
+            $query->where("user_id", $userInfo["id"]);
+        })->orderBy("sort", "asc")->get();
 
         $res = $res->toArray();
 

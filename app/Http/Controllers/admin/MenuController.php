@@ -21,8 +21,8 @@ class MenuController extends Controller
     {
         $meunService = new MenuService();
 
-        MenuService::setMsg("操作成功!");
-        MenuService::setData($meunService->getList());
+        AjaxService::setMsg("操作成功!");
+        AjaxService::setData($meunService->getList());
 
         return AjaxService::responseJson();
     }
