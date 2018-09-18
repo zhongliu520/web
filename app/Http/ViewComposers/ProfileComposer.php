@@ -81,7 +81,8 @@ class ProfileComposer
         {
             if($v["pid"] == $id)
             {
-                if($_SERVER["REDIRECT_URL"] == $v["url"])
+                $nowUrl = isset($_SERVER["REDIRECT_URL"])? $_SERVER["REDIRECT_URL"]: preg_replace("/^([^\?]+).*/", "$1", $_SERVER["REQUEST_URI"]);
+                if($nowUrl == $v["url"])
                 {
                     $v["active"] = 1;
                     array_push($this->pageBar, ["name"=>$v["name"], "url"=>$v["url"], "sort"=>$v["sort"]]);
