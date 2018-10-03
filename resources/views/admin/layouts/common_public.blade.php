@@ -47,6 +47,11 @@
 
 @section('head')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="/admin/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="/admin/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
     <link href="/admin/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
     <link href="/admin/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
@@ -66,6 +71,12 @@
 
 
 @section('foot')
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="/admin/assets/global/scripts/datatable.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+    <script src="/admin/assets/global/plugins/bootstrap-datepiAJAX DATATABLEcker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script src="/admin/assets/global/plugins/moment.min.js" type="text/javascript"></script>
     <script src="/admin/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
@@ -108,6 +119,9 @@
     <script src="/admin/assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
     <script src="/admin/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
     <!-- END THEME LAYOUT SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/admin/assets/pages/scripts/table-datatables-ajax.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
 @endsection
 
 <?php function showMenuLi($chils){?>
