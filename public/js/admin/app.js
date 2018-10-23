@@ -13899,7 +13899,7 @@ window.Vue = __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(39));
+Vue.component('test-component', __webpack_require__(39));
 
 var app = new Vue({
   el: '#app'
@@ -47204,7 +47204,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/ExampleComponent.vue"
+Component.options.__file = "resources/assets/vue/admin/components/ExampleComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -47213,9 +47213,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7168fb6a", Component.options)
+    hotAPI.createRecord("data-v-3961e04f", Component.options)
   } else {
-    hotAPI.reload("data-v-7168fb6a", Component.options)
+    hotAPI.reload("data-v-3961e04f", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -47382,12 +47382,12 @@ var staticRenderFns = [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-md-8" }, [
           _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
+            _c("div", { staticClass: "card-header" }, [_vm._v("大鸟依人")]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
-              _vm._v("\n                    你好啊\n                ")
+              _vm._v(
+                "\n                    双鱼座对最亲最爱的人爱在心底却容易暴走脾气，特别不好；对外人从来和善，常被说人好；貌似对话过程中不知不觉就会强加灌输自己的想法给别人；双鱼座爱睡觉，常常迟到、健忘，对大多数人和事不上心，无视“路人”，不在意周围；双鱼座忽冷忽热会有冷淡期，让朋友有些受不了。\n                "
+              )
             ])
           ])
         ])
@@ -47400,7 +47400,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7168fb6a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-3961e04f", module.exports)
   }
 }
 
