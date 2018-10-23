@@ -58,9 +58,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- END CORE PLUGINS -->
 
     <script src="/admin/assets/pages/layer/layer.js" type="text/javascript"></script>
-
     @yield('foot')
-
     <script>
 
     var is_request = false;
@@ -112,4 +110,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 </script>
+
+    @yield('foot-js')
 </html>

@@ -2,10 +2,10 @@ var TableDatatablesAjax = function () {
 
     var initPickers = function () {
         //init date pickers
-        $('.date-picker').datepicker({
-            rtl: App.isRTL(),
-            autoclose: true
-        });
+        // $('.date-picker').datepicker({
+        //     rtl: App.isRTL(),
+        //     autoclose: true
+        // });
     }
 
     var handleRecords = function () {
@@ -15,6 +15,7 @@ var TableDatatablesAjax = function () {
         grid.init({
             src: $("#datatable_ajax"),
             onSuccess: function (grid, response) {
+                // console.log(grid);
                 // grid:        grid object
                 // response:    json object of server side ajax response
                 // execute some code after table records loaded
@@ -23,6 +24,7 @@ var TableDatatablesAjax = function () {
                 // execute some code on network or other general error  
             },
             onDataLoad: function(grid) {
+                console.log(grid);
                 // execute some code on ajax data load
             },
             loadingMessage: 'Loading...',
@@ -41,7 +43,7 @@ var TableDatatablesAjax = function () {
                 ],
                 "pageLength": 10, // default record count per page
                 "ajax": {
-                    "url": "../demo/table_ajax.php", // ajax source
+                    "url": "/admin/meun/list", // ajax source
                 },
                 "order": [
                     [1, "asc"]
