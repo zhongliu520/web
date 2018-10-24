@@ -9,14 +9,21 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/display.css';
+
+Vue.use(ElementUI);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('test-component', require('./components/ExampleComponent.vue'));
+Vue.component('meun-index-component', require('./components/meun/index.vue'));
 
 const app = new Vue({
     el: '#app'
+    // template: '<App/>'
 });
