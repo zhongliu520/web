@@ -11,9 +11,11 @@ window.Vue = require('vue');
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
+import api from './api'
 // import 'element-ui/lib/theme-chalk/display.css';
 
 Vue.use(ElementUI);
+Vue.prototype.$api = api;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
