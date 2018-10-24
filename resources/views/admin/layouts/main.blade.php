@@ -34,12 +34,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="/admin/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
     <link href="/admin/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/admin/app.js') }}" defer></script>
     @yield('head')
 
-    <link rel="shortcut icon" href="favicon.ico" /> </head>
+    <link rel="shortcut icon" href="favicon.ico" />
+
+</head>
     <!-- END HEAD -->
 
     @yield('content')

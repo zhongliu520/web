@@ -99,6 +99,7 @@
         <img src="/admin/assets/pages/img/logo-big.png" alt="" /> </a>
 </div>
 <!-- END LOGO -->
+
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->

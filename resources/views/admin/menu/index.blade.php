@@ -8,6 +8,11 @@
 
 @yield('top')
 
+@push('js')
+    <!-- Scripts -->
+    <script src="{{ asset('js/admin/app.js') }}" defer></script>
+@endpush
+
 <!-- BEGIN HEADER & CONTENT DIVIDER -->
 <div class="clearfix"> </div>
 <!-- END HEADER & CONTENT DIVIDER -->
