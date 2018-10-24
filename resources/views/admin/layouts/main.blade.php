@@ -37,7 +37,7 @@ License: You must have a valid license purchased only from themeforest(the above
     @yield('head')
 
     <link rel="shortcut icon" href="favicon.ico" />
-
+    @stack('js')
 </head>
     <!-- END HEAD -->
 
