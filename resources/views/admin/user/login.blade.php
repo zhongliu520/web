@@ -34,6 +34,7 @@
     <!-- END THEME GLOBAL SCRIPTS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="/admin/assets/pages/scripts/login.js" type="text/javascript"></script>
+    <script src="/admin/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
 
     <!-- END PAGE LEVEL SCRIPTS -->
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
@@ -462,4 +463,6 @@
 <div class="copyright"> 2014 © Metronic. Admin Dashboard Template. </div>
 
 </body>
+
+
 @endsection
