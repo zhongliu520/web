@@ -14,29 +14,60 @@
         <el-container>
 
             <el-main>
-                <el-table :data="tableData" style="width: 100%">
+                <el-table :data="tableData" style="width: 100%" v-loading="loading">
                     <!--<el-table-column prop="date" label="日期" width="140">-->
                     <!--</el-table-column>-->
                     <el-table-column prop="name" label="姓名">
                     </el-table-column>
+                    <el-table-column prop="parent_name" label="父级">
+                    </el-table-column>
                     <el-table-column prop="icon" label="图标">
+                    </el-table-column>
+                    <el-table-column prop="showMessage" label="显/隐">
                     </el-table-column>
                     <el-table-column  label="操作">
                         <template slot-scope="scope">
+                            <template v-if="scope.row.is_show == 1">
+                                <el-button class="table-btn-custom"
+                                           type="text"
+                                           @click.native.prevent="updateStatusRow(scope.row, 0)"
+                                           size="small">
+                                    隐藏
+                                </el-button>
+                            </template>
+                            <template v-else-if="scope.row.is_show == 0">
+                                <el-button class="table-btn-custom"
+                                           type="text"
+                                           @click.native.prevent="updateStatusRow(scope.row, 1)"
+                                           size="small">
+                                    显示
+                                </el-button>
+                            </template>
+
                             <el-button class="table-btn-custom"
                                        type="text"
+                                       @click.native.prevent="deleteRow(scope.row)"
                                        size="small">
                                 删除
                             </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
+                <page
+                    @handleCurrentChange="handleCurrentChange"
+                    @handleSizeChange="handleSizeChange"
+                    :currentPage="currentPage"
+                    :pageSize="pageSize"
+                    :total="total"
+                    >
+                    </page>
             </el-main>
         </el-container>
     </el-container>
 
 </template>
 <script>
+    import Page from '../common/page'
     export default {
         data() {
             // const item = {
@@ -45,32 +76,67 @@
             //     address: '上海市普陀区金沙江路 1518 弄'
             // };
             return {
-                tableData: []
+                tableData: [],
+                total: 0,
+                currentPage: 1,
+                loading: false
             }
         },
-        // components: {
-        //
-        // },
-        // computed: {
-        //
-        // },
+        components: {
+            page: Page
+        },
+        computed: {
+            pageSize () {
+              return this.$store.state.pageSize
+            }
+        },
         beforeMount () {
-            console.log(123);
-            this.getData();
-            console.log(this.tableData);
+            this.getData(this.pageSize, this.currentPage, 'total');
         },
         async created () {
             // console.log(this.tableData);
         },
         methods: {
-            async getData (){
-                let rows = await this.$api.getMeunList();
+            async getData (limit=10, page=1, total='total', search=''){
+                this.loading = true;
+                let rows = await this.$api.getMeunList({
+                    offset: (page - 1) * limit,
+                    limit: limit
+                });
                 console.log(rows);
                 this.tableData = [];
-                if(rows.data.code == 200)
+                if(!rows.data.hasError && rows.data.code == 200)
                 {
-                    this.tableData = rows.data.data;
+                    this.tableData = rows.data.data.rows;
+                    this.loading = false;
+                }else
+                    this.loading = false;
+            },
+            async deleteRow (row) {
+                let rows = await this.$api.deleteMeun(row.id);
+
+                if(!rows.data.hasError && rows.data.code == 200)
+                {
+                    this.getData();
                 }
+            },
+            async updateStatusRow (row, status) {
+                let rows = await this.$api.updateMeunStatus(row.id, {status: status});
+
+                if(!rows.data.hasError && rows.data.code == 200)
+                {
+                    this.getData();
+                }
+            },
+            handleCurrentChange (val) {
+              this.currentPage = val
+              console.log(val)
+              this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey)
+            },
+            handleSizeChange (val) {
+              this.$store.commit('setPageSize', val)
+              this.currentPage = 1
+              this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey)
             },
         }
     };

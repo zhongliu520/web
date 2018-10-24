@@ -33,16 +33,19 @@ class ProfileComposer
     {
         $userInfo = Auth::guard("admin")->user()->toArray();
 
-        $res = Menus::orWhereHas("menus_roles", function($query) use ($userInfo){
-            $query->whereHas("user_roles", function ($query)  use ($userInfo) {
+        $model = Menus::where("is_show", 1);
+        $res = $model->where(function($query) use ( $userInfo ){
+
+            $query->orWhereHas("menus_roles", function($query) use ($userInfo){
+                $query->whereHas("user_roles", function ($query)  use ($userInfo) {
+                    $query->where("user_id", $userInfo["id"]);
+                });
+            })->orWhereHas("menus_users", function($query) use ($userInfo){
                 $query->where("user_id", $userInfo["id"]);
             });
-        })->orWhereHas("menus_users", function($query) use ($userInfo){
-            $query->where("user_id", $userInfo["id"]);
         })->orderBy("sort", "asc")->get();
-
+//        dd($model->toSql());
         $res = $res->toArray();
-
         $menus = [];
 
         foreach($res as $k=>$v)

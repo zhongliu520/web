@@ -31,8 +31,16 @@ const fetch = (url, data = {}, method = 'get', headers) => {
 }
 
 export default{
-    // 获取店铺名
+    // 获取菜单列表
     getMeunList(data) {
         return fetch(`/admin/meun/list`, data, "POST")
-    }
+    },
+    // 删除菜单
+    deleteMeun(id, data) {
+        return fetch(`/admin/meun/delete/${id}`, data)
+    },
+    // 更新菜单状态
+    updateMeunStatus(id, data) {
+        return fetch(`/admin/meun/update/status/${id}`, data)
+    },
 }

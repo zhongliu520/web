@@ -39,9 +39,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
 
         Route::get('home', 'UserController@home');
 
-        Route::get('meun/index', 'MenuController@index');
+        Route::group(['prefix' => 'meun'], function(){
 
-        Route::post('meun/list', 'MenuController@showList');
+            Route::get('index', 'MenuController@index');
+
+            Route::post('list', 'MenuController@showList');
+
+            Route::get('update/status/{id}', 'MenuController@updateStatusById')->where(["id" => "[0-9]+"]);
+
+            Route::get('delete/{id}', 'MenuController@deleteById')->where(["id" => "[0-9]+"]);
+        });
     });
 });
 

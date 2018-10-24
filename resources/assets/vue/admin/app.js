@@ -10,8 +10,9 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css'
-import api from './api'
+import 'element-ui/lib/theme-chalk/index.css';
+import api from './api';
+import store from './store';
 // import 'element-ui/lib/theme-chalk/display.css';
 
 Vue.use(ElementUI);
@@ -26,6 +27,7 @@ Vue.prototype.$api = api;
 Vue.component('meun-index-component', require('./components/meun/index.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store,
     // template: '<App/>'
 });
