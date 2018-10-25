@@ -24,7 +24,7 @@ class ProfileComposer
         $menus = $this->getMenus();
 
         array_multisort(array_column($this->pageBar,'sort'),SORT_ASC, $this->pageBar);
-
+//dd($menus);
         $view->with('menuData', ["menus"=>$menus, "pageBar"=>$this->pageBar]);
     }
 

@@ -126,7 +126,7 @@
 
 <?php function showMenuLi($chils){?>
     <?php if(!empty($chils)){?>
-        <ul class="sub-menu">
+        <ul class="sub-menu" style="display: block;">
             <?php foreach($chils as $v){?>
 
                 <li class="nav-item start <?php echo $v["active"]==1? "active open": "";?>">
