@@ -25,6 +25,7 @@ Vue.prototype.$api = api;
  */
 
 Vue.component('meun-index-component', require('./components/meun/index.vue'));
+Vue.component('users-index-component', require('./components/users/index.vue'));
 
 const app = new Vue({
     el: '#app',

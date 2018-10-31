@@ -64,6 +64,18 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'oss' => [
+            'driver'     => 'oss',
+            'access_id'  => env('OSS_ACCESS_ID','IsdaxhlR9kzdnGMQ'),
+            'access_key' => env('OSS_ACCESS_KEY','BTNu7FgrQImHLhtMsVjm4J30Ttwmk2'),
+            'bucket'     => env('OSS_BUCKET','zuizan'),
+            //ECS访问的内网Endpoint oss-cn-hangzhou-internal.aliyuncs.com
+            //外网Endpoint  oss-cn-hangzhou.aliyuncs.com
+            'endpoint'   => env('OSS_ENDPOINT','oss-cn-hangzhou.aliyuncs.com'),
+            //'prefix'     => env('OSS_PREFIX', 'v2'), // optional
+            'url'        => env('OSS_URL','https://zuizan.oss-cn-hangzhou.aliyuncs.com'),
+        ],
+
     ],
 
 ];
