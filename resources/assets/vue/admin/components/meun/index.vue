@@ -13,7 +13,7 @@
     <el-container style="height: 95vh; border: 1px solid #eee">
         <el-header style="text-align: right; font-size: 12px;background-color: #fff;">
             <el-row>
-                <el-button type="primary" icon="el-icon-plus" circle></el-button>
+                <el-button @click="showPushDialog" type="primary" icon="el-icon-plus" circle></el-button>
             </el-row>
         </el-header>
 
@@ -67,29 +67,35 @@
                 >
                 </page>
         </el-main>
-    </el-container>
 
+        <push-dialog
+                :pushDialog="pushDialog"
+                @closePushDialog="closePushDialog"
+                @getData="getData">
+
+        </push-dialog>
+
+    </el-container>
 </template>
 <script>
     import Page from '../common/page'
     import ElHeader from "../../../../../../node_modules/element-ui/packages/header/src/main.vue";
+    import PushDialog from "./dialog/push";
+
     export default {
         data() {
-            // const item = {
-            //     date: '2016-05-02',
-            //     name: '王小虎',
-            //     address: '上海市普陀区金沙江路 1518 弄'
-            // };
             return {
                 tableData: [],
                 total: 0,
                 currentPage: 1,
-                loading: false
+                loading: false,
+                pushDialog: false
             }
         },
         components: {
             ElHeader,
-            page: Page
+            page: Page,
+            "push-dialog": PushDialog
         },
         computed: {
             pageSize () {
@@ -144,6 +150,12 @@
               this.currentPage = 1
               this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey)
             },
+            showPushDialog () {
+                this.pushDialog = true;
+            },
+            closePushDialog () {
+                this.pushDialog = false;
+            }
         }
     };
 </script>

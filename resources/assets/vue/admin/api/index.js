@@ -37,10 +37,14 @@ export default{
     },
     // 删除菜单
     deleteMeun(id, data) {
-        return fetch(`/admin/meun/delete/${id}`, data)
+        return fetch(`/admin/meun/delete/${id}`, data);
     },
     // 更新菜单状态
     updateMeunStatus(id, data) {
-        return fetch(`/admin/meun/update/status/${id}`, data)
+        return fetch(`/admin/meun/update/status/${id}`, data);
+    },
+    // 更新菜单状态
+    saveMeun(id, data) {
+        return fetch(`/admin/meun/save/${id}`, data, "POST");
     },
 }

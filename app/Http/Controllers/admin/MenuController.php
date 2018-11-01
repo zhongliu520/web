@@ -9,6 +9,7 @@ use App\Services\Admin\MenuService;
 
 use Auth;
 use AjaxService;
+use Validator;
 use Exception;
 
 class MenuController extends Controller
@@ -48,6 +49,50 @@ class MenuController extends Controller
             });
 
         return response()->ajax(['total' => $total, 'rows' => $rows, "info" => ""]);
+    }
+
+
+    public function save($id)
+    {
+        $fields = [
+            'name' => 'required|string|max:50',
+            'icon' => 'required|string|max:20"',
+            "pid" => "required|integer|min:1",
+            'url' => 'required|string|max:250"'
+        ];
+        $attr = [
+            'name' => '菜单名称',
+            'icon' => '菜单图标',
+            'pid' => '父级菜单',
+            'url' => '菜单链接',
+        ];
+        $messages = [
+            'name.required' => '名称不能为空!',
+            'icon.required' => '菜单图标不能为空!',
+            'pid.required' => '请选择父级菜单!',
+            'url.required' => '菜单链接不能为空!',
+        ];
+
+        $data = request()->all();
+
+        $validator = Validator::make($data, $fields, $messages, $attr);
+        if($validator->fails()) {
+            throw new Exception($validator->errors()->first());
+        }
+
+        $data["pen_name"] = "admin";
+
+        try {
+            Menus::updateOrCreate(
+                ["id" => $id],
+                $data
+            );
+
+            return response()->ajax();
+        } catch (Exception $e) {
+
+            return response()->errorAjax($e->getMessage());
+        }
     }
 
     /**

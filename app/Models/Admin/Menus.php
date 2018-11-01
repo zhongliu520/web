@@ -16,6 +16,22 @@ class Menus extends Model
 
 //    public $timestamps = false;
 
+    /**
+     * 可以被批量赋值的属性.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', "pid", "url", "pen_name", "is_show", "icon", "sort", "active", "created_at", "updated_at"];
+
+
+    /**
+     * 不能被批量赋值的属性
+     *
+     * @var array
+     */
+    protected $guarded = ['deleted_at'];
+
+
     public function children()
     {
         return $this->hasMany('App\Models\Admin\Menus', 'pid', 'id');
