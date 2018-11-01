@@ -90,7 +90,14 @@
                         {
                             this.closePushDialog();
                             this.$emit("getData");
+                            return false;
                         }
+
+                        this.$notify.error({
+                            title: '错误',
+                            message: rows.data.error,
+                            offset: 100
+                        });
                     } else {
                         console.log('error submit!!');
                         return false;

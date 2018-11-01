@@ -77,7 +77,7 @@ class MenuController extends Controller
 
         $validator = Validator::make($data, $fields, $messages, $attr);
         if($validator->fails()) {
-            throw new Exception($validator->errors()->first());
+            return response()->errorAjax($validator->errors()->first());
         }
 
         $data["pen_name"] = "admin";
