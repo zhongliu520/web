@@ -8,6 +8,10 @@
     .el-aside {
         color: #333;
     }
+
+    .msg-top {
+        top: 100px;
+    }
 </style>
 <template>
     <el-container style="height: 95vh; border: 1px solid #eee">
@@ -71,7 +75,8 @@
         <push-dialog
                 :pushDialog="pushDialog"
                 @closePushDialog="closePushDialog"
-                @getData="getData">
+                @getData="getData"
+                :initData="initData">
 
         </push-dialog>
 
@@ -110,33 +115,51 @@
             // console.log(this.tableData);
         },
         methods: {
+            initData (rows)
+            {
+                let data = null;
+
+                if(!rows.data.hasError && rows.data.code == 200)
+                {
+                    data = rows.data.data.rows;
+                    console.log(data);
+                    if(!data)
+                        data = rows.data.data;
+
+                    if(!data)
+                        return true;
+                }else {
+                    this.showErrorMsg(rows.data.error);
+
+                    return false;
+                }
+                return data;
+            },
             async getData (limit=10, page=1, total='total', search=''){
                 this.loading = true;
                 let rows = await this.$api.getMeunList({
                     offset: (page - 1) * limit,
                     limit: limit
                 });
-                console.log(rows);
-                this.tableData = [];
-                if(!rows.data.hasError && rows.data.code == 200)
+                // console.log(rows);
+                this.tableData = this.initData(rows);
+                if(!!this.tableData)
                 {
-                    this.tableData = rows.data.data.rows;
                     this.loading = false;
-                }else
-                    this.loading = false;
+                }
             },
             async deleteRow (row) {
                 let rows = await this.$api.deleteMeun(row.id);
 
-                if(!rows.data.hasError && rows.data.code == 200)
+                if(!!this.initData(rows))
                 {
                     this.getData();
                 }
             },
             async updateStatusRow (row, status) {
+                this.loading = true;
                 let rows = await this.$api.updateMeunStatus(row.id, {status: status});
-
-                if(!rows.data.hasError && rows.data.code == 200)
+                if(!!this.initData(rows))
                 {
                     this.getData();
                 }
@@ -156,6 +179,14 @@
             },
             closePushDialog () {
                 this.pushDialog = false;
+            },
+            showErrorMsg ($msg)
+            {
+                this.$message({
+                    type: "error",
+                    customClass: "msg-top",
+                    message: $msg
+                });
             }
         }
     };

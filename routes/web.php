@@ -40,18 +40,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
         Route::get('home', 'UserController@home');
 
         Route::group(['prefix' => 'meun'], function(){
+            Route::get('index', function() {
+                return view("admin.menu.index");
+            });
 
-            Route::get('index', 'MenuController@index');
-
-            Route::post('list', 'MenuController@showList');
-
-            Route::post('save/{id}', 'MenuController@save')->where(["id" => "[0-9]+"]);
-
-            Route::get('update/status/{id}', 'MenuController@updateStatusById')->where(["id" => "[0-9]+"]);
-
-            Route::get('delete/{id}', 'MenuController@deleteById')->where(["id" => "[0-9]+"]);
         });
     });
+
+
+    Route::group(['middleware'=>"auth.ajax.user"], function(){
+
+        require __DIR__.'/admin/ajax/meun.php';
+    });
+
 });
 
 

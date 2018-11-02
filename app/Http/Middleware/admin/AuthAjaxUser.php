@@ -7,7 +7,7 @@ use Closure;
 
 use Illuminate\Support\Facades\Auth;
 
-class AuthUser
+class AuthAjaxUser
 {
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class AuthUser
     {
         if(!Auth::guard("admin")->check())
         {
-            return redirect("admin/index");
+            return response()->errorAjax("登入过期,请重新登入!");
         }
 
         return $next($request);

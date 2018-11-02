@@ -35,7 +35,8 @@
 <script>
     export default {
         props: {
-            pushDialog: Boolean
+            pushDialog: Boolean,
+            initData: [Function]
         },
         data() {
             return {
@@ -85,19 +86,12 @@
                 this.$refs[formName].validate (async (valid) => {
                     if (valid) {
                         let rows = await this.$api.saveMeun(0, this.ruleForm);
-
-                        if(!rows.data.hasError && rows.data.code == 200)
+                        if(!!this.initData(rows))
                         {
                             this.closePushDialog();
                             this.$emit("getData");
                             return false;
                         }
-
-                        this.$notify.error({
-                            title: '错误',
-                            message: rows.data.error,
-                            offset: 100
-                        });
                     } else {
                         console.log('error submit!!');
                         return false;
