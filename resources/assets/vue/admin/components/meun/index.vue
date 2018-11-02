@@ -13,7 +13,7 @@
     <el-container style="height: 95vh; border: 1px solid #eee">
         <el-header style="text-align: right; font-size: 12px;background-color: #fff;">
             <el-row>
-                <el-button @click="showPushDialog" type="primary" icon="el-icon-plus" circle></el-button>
+                <el-button @click="showPushDialog" icon="el-icon-plus" plain>添加</el-button>
             </el-row>
         </el-header>
 
@@ -79,8 +79,9 @@
 </template>
 <script>
     import Page from '../common/page'
-    import ElHeader from "../../../../../../node_modules/element-ui/packages/header/src/main.vue";
+    import ElHeader from "element-ui/packages/header/src/main.vue";
     import PushDialog from "./dialog/push";
+
 
     export default {
         data() {

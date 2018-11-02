@@ -29236,10 +29236,12 @@ module.exports = __webpack_require__(223);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_element_ui__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_element_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_element_ui__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_element_ui_lib_theme_chalk_index_css__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_element_ui_lib_theme_chalk_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_element_ui_lib_theme_chalk_index_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_element_ui_lib_theme_chalk_display_css__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_element_ui_lib_theme_chalk_display_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_element_ui_lib_theme_chalk_display_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_element_ui_lib_theme_chalk_index_css__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_element_ui_lib_theme_chalk_index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_element_ui_lib_theme_chalk_index_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store__ = __webpack_require__(198);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -29255,10 +29257,11 @@ window.Vue = __webpack_require__(3);
 
 
 
+
 // import 'element-ui/lib/theme-chalk/display.css';
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_element_ui___default.a);
-Vue.prototype.$api = __WEBPACK_IMPORTED_MODULE_2__api__["a" /* default */];
+Vue.prototype.$api = __WEBPACK_IMPORTED_MODULE_3__api__["a" /* default */];
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29271,7 +29274,7 @@ Vue.component('users-index-component', __webpack_require__(218));
 
 var app = new Vue({
   el: '#app',
-  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* default */]
+  store: __WEBPACK_IMPORTED_MODULE_4__store__["a" /* default */]
   // template: '<App/>'
 });
 
@@ -96613,7 +96616,7 @@ var content = __webpack_require__(203);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(49)("139c3573", content, false, {});
+var update = __webpack_require__(49)("4df7a96d", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -96685,8 +96688,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_page__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_page___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__common_page__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_element_ui_packages_header_src_main_vue__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_element_ui_packages_header_src_main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__node_modules_element_ui_packages_header_src_main_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dialog_push__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dialog_push___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__dialog_push__);
 
@@ -96789,7 +96792,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
 
     components: {
-        ElHeader: __WEBPACK_IMPORTED_MODULE_2__node_modules_element_ui_packages_header_src_main_vue___default.a,
+        ElHeader: __WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue___default.a,
         page: __WEBPACK_IMPORTED_MODULE_1__common_page___default.a,
         "push-dialog": __WEBPACK_IMPORTED_MODULE_3__dialog_push___default.a
     },
@@ -97732,7 +97735,7 @@ var content = __webpack_require__(209);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(49)("04242ac8", content, false, {});
+var update = __webpack_require__(49)("2b2cdea2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -98325,10 +98328,14 @@ var render = function() {
           _c(
             "el-row",
             [
-              _c("el-button", {
-                attrs: { type: "primary", icon: "el-icon-plus", circle: "" },
-                on: { click: _vm.showPushDialog }
-              })
+              _c(
+                "el-button",
+                {
+                  attrs: { icon: "el-icon-plus", plain: "" },
+                  on: { click: _vm.showPushDialog }
+                },
+                [_vm._v("添加")]
+              )
             ],
             1
           )
@@ -98539,7 +98546,7 @@ var content = __webpack_require__(220);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(49)("53d3f54a", content, false, {});
+var update = __webpack_require__(49)("bf9cebec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -99002,6 +99009,52 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 224 */,
+/* 225 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(226);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(195)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../css-loader/index.js!./display.css", function() {
+			var newContent = require("!!../../../css-loader/index.js!./display.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(26)(false);
+// imports
+
+
+// module
+exports.push([module.i, "@media only screen and (max-width:767px){.hidden-xs-only{display:none!important}}@media only screen and (min-width:768px){.hidden-sm-and-up{display:none!important}}@media only screen and (min-width:768px) and (max-width:991px){.hidden-sm-only{display:none!important}}@media only screen and (max-width:991px){.hidden-sm-and-down{display:none!important}}@media only screen and (min-width:992px){.hidden-md-and-up{display:none!important}}@media only screen and (min-width:992px) and (max-width:1199px){.hidden-md-only{display:none!important}}@media only screen and (max-width:1199px){.hidden-md-and-down{display:none!important}}@media only screen and (min-width:1200px){.hidden-lg-and-up{display:none!important}}@media only screen and (min-width:1200px) and (max-width:1919px){.hidden-lg-only{display:none!important}}@media only screen and (max-width:1919px){.hidden-lg-and-down{display:none!important}}@media only screen and (min-width:1920px){.hidden-xl-only{display:none!important}}", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
