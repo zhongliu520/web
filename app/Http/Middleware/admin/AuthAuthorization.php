@@ -8,6 +8,7 @@
 
 namespace App\Http\Middleware\admin;
 
+use App\Models\Admin\UserRole;
 use Closure;
 //use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
@@ -26,11 +27,8 @@ class AuthAuthorization
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $user = Auth::guard("admin")->user();
 
-        $user->id;
 
         return $next($request);
     }
-
 }

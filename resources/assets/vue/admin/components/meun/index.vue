@@ -52,6 +52,12 @@
                                 显示
                             </el-button>
                         </template>
+                        <el-button class="table-btn-custom"
+                                   type="text"
+                                   @click.native.prevent="showPushDialog(scope.row)"
+                                   size="small">
+                            编辑
+                        </el-button>
 
                         <el-button class="table-btn-custom"
                                    type="text"
@@ -131,7 +137,7 @@
                 }else {
                     this.showErrorMsg(rows.data.error);
 
-                    return false;
+                    return [];
                 }
                 return data;
             },
@@ -145,6 +151,8 @@
                 this.tableData = this.initData(rows);
                 if(!!this.tableData)
                 {
+                    this.loading = false;
+                } else {
                     this.loading = false;
                 }
             },

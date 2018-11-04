@@ -52,6 +52,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth.ajax.user' => \App\Http\Middleware\admin\AuthAjaxUser::class,
+        'auth.authorization' => \App\Http\Middleware\admin\AuthAuthorization::class,
         'auth.user' => \App\Http\Middleware\admin\AuthUser::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

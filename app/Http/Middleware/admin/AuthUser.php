@@ -2,13 +2,17 @@
 
 namespace App\Http\Middleware\admin;
 
+use App\Models\Admin\MenusUsers;
 use Closure;
 //use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
 use Illuminate\Support\Facades\Auth;
+use App\Models\Admin\UserRole;
 
 class AuthUser
 {
+    private $isCheck = false;
+
     /**
      * Handle an incoming request.
      *
@@ -19,11 +23,60 @@ class AuthUser
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if(!Auth::guard("admin")->check())
+        $this->check();
+        if(!Auth::guard("admin")->check() || !$this->isCheck)
         {
             return redirect("admin/index");
         }
 
         return $next($request);
+    }
+
+
+    public function check()
+    {
+        if(!Auth::guard("admin")->check())
+        {
+            return false;
+        }
+
+        $user = Auth::guard("admin")->user();
+
+        UserRole::where(["user_id" => $user->id])->with(["role" => function($query) {
+
+            $query->with(["menus_roles" => function($query) {
+
+                $query->with(["menus"])->has("menus");
+            }]);
+        }])->has("role")->get()->each(function($item){
+
+            if(!empty($item->role->menus_roles))
+            {
+                foreach ($item->role->menus_roles as $key => $val)
+                {
+                    $url = preg_replace("/\//", "\/", $_SERVER["REDIRECT_URL"]);
+                    if(preg_match("/^" . $url . "$/", $val->menus->url))
+                    {
+                        $this->isCheck = true;
+                    }
+                }
+            }
+        });
+
+        MenusUsers::where(["user_id" => $user->id])->with(["menus" => function() {
+
+        }])->get()->each(function($item) {
+            if(!empty($item->menus))
+            {
+                foreach ($item->menus as $key => $val)
+                {
+                    $url = preg_replace("/\//", "\/", $_SERVER["REDIRECT_URL"]);
+                    if(preg_match("/^" . $url . "$/", $val->menus->url))
+                    {
+                        $this->isCheck = true;
+                    }
+                }
+            }
+        });
     }
 }

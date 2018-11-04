@@ -2,13 +2,9 @@
 
 namespace App\Models\Admin;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Menus extends Model
+class Menus extends BaseModel
 {
-
-    use SoftDeletes;
 
     protected $table="menus";
 

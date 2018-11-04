@@ -8,13 +8,12 @@
 
 namespace App\Models\Admin;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Users extends Model
+class Users extends BaseModel
 {
 
     protected $table="users";
 
-    public $timestamps = false;
+//    public $timestamps = false;
 
 }

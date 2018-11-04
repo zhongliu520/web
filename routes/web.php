@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
     });
 
 
-    Route::group(['middleware'=>"auth.ajax.user"], function(){
+    Route::group(['middleware'=>["auth.ajax.user"]], function(){
 
         require __DIR__.'/admin/ajax/meun.php';
     });

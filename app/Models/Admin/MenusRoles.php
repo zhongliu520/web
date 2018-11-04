@@ -2,23 +2,22 @@
 
 namespace App\Models\Admin;
 
-use Illuminate\Database\Eloquent\Model;
 
-class MenusRoles extends Model
+class MenusRoles extends BaseModel
 {
 
     protected $table="menus_roles";
 
-    public $timestamps = false;
+//    public $timestamps = false;
 
     public function roles()
     {
         return $this->hasMany(Roles::class, 'id', 'role_id');
     }
 
-    public function user_roles()
+    public function menus ()
     {
-        return $this->hasMany(UserRole::class, 'role_id', 'role_id');
+        return $this->hasOne(Menus::class, "id", "menu_id");
     }
 
 }

@@ -37,8 +37,12 @@ class ProfileComposer
         $res = $model->where(function($query) use ( $userInfo ){
 
             $query->orWhereHas("menus_roles", function($query) use ($userInfo){
-                $query->whereHas("user_roles", function ($query)  use ($userInfo) {
-                    $query->where("user_id", $userInfo["id"]);
+
+                $query->whereHas("roles", function ($query)  use ($userInfo) {
+
+                    $query->whereHas("user_roles", function ($query)  use ($userInfo) {
+                        $query->where("user_id", $userInfo["id"]);
+                    });
                 });
             })->orWhereHas("menus_users", function($query) use ($userInfo){
                 $query->where("user_id", $userInfo["id"]);
