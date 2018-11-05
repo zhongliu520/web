@@ -24,9 +24,15 @@ class AuthUser
     public function handle($request, Closure $next, $guard = null)
     {
         $this->check();
-        if(!Auth::guard("admin")->check() || !$this->isCheck)
+        if(!Auth::guard("admin")->check())
         {
             return redirect("admin/index");
+        }
+
+        if(!$this->isCheck)
+        {
+            echo "404，无权限访问";
+            exit;
         }
 
         return $next($request);
@@ -55,6 +61,7 @@ class AuthUser
                 foreach ($item->role->menus_roles as $key => $val)
                 {
                     $url = preg_replace("/\//", "\/", $_SERVER["REDIRECT_URL"]);
+                    $url = preg_replace("/\d+/", "%d", $url);
                     if(preg_match("/^" . $url . "$/", $val->menus->url))
                     {
                         $this->isCheck = true;
@@ -71,6 +78,7 @@ class AuthUser
                 foreach ($item->menus as $key => $val)
                 {
                     $url = preg_replace("/\//", "\/", $_SERVER["REDIRECT_URL"]);
+                    $url = preg_replace("/\d+/", "%d", $url);
                     if(preg_match("/^" . $url . "$/", $val->menus->url))
                     {
                         $this->isCheck = true;

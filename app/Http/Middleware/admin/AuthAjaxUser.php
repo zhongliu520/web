@@ -72,6 +72,7 @@ class AuthAjaxUser
                 foreach ($item->menus as $key => $val)
                 {
                     $url = preg_replace("/\//", "\/", $_SERVER["REDIRECT_URL"]);
+                    $url = preg_replace("/\d+/", "%d", $url);
                     if(preg_match("/^" . $url . "$/", $val->menus->url))
                     {
                         $this->isCheck = true;
