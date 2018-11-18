@@ -47,4 +47,8 @@ export default{
     saveMeun(id, data) {
         return fetch(`/admin/meun/save/${id}`, data, "POST");
     },
+    // 获取用户列表
+    getUserList(data) {
+        return fetch(`/admin/users/list`, data);
+    }
 }

@@ -80,8 +80,6 @@ class MenuController extends Controller
             return response()->errorAjax($validator->errors()->first());
         }
 
-        $data["pen_name"] = "admin";
-
         try {
             Menus::updateOrCreate(
                 ["id" => $id],

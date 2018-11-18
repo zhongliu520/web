@@ -26,7 +26,7 @@
             <el-table :data="tableData" style="width: 100%" v-loading="loading">
                 <!--<el-table-column prop="date" label="日期" width="140">-->
                 <!--</el-table-column>-->
-                <el-table-column prop="name" label="姓名">
+                <el-table-column prop="name" label="名称">
                 </el-table-column>
                 <el-table-column prop="parent_name" label="父级">
                 </el-table-column>
@@ -82,6 +82,7 @@
                 :pushDialog="pushDialog"
                 @closePushDialog="closePushDialog"
                 @getData="getData"
+                :pushForm="pushForm"
                 :initData="initData">
 
         </push-dialog>
@@ -101,7 +102,13 @@
                 total: 0,
                 currentPage: 1,
                 loading: false,
-                pushDialog: false
+                pushDialog: false,
+                pushForm: {
+                    name: "",
+                    pid: "",
+                    icon: "",
+                    url: ""
+                }
             }
         },
         components: {
@@ -182,7 +189,11 @@
               this.currentPage = 1
               this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey)
             },
-            showPushDialog () {
+            showPushDialog (rows) {
+                this.pushForm.name = rows.name;
+                this.pushForm.pid = rows.pid;
+                this.pushForm.icon = rows.icon;
+                this.pushForm.url = rows.url;
                 this.pushDialog = true;
             },
             closePushDialog () {

@@ -164,6 +164,7 @@ return [
         Mews\Captcha\CaptchaServiceProvider::class,
 
         App\Providers\ApplicationServiceProvider::class,
+        ApolloPY\Flysystem\AliyunOss\AliyunOssServiceProvider::class,
     ],
 
     /*

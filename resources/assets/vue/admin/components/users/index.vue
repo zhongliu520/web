@@ -8,12 +8,16 @@
     .el-aside {
         color: #333;
     }
+
+    .msg-top {
+        top: 100px;
+    }
 </style>
 <template>
     <el-container style="height: 95vh; border: 1px solid #eee">
         <el-header style="text-align: right; font-size: 12px;background-color: #fff;">
             <el-row>
-                <el-button type="primary" icon="el-icon-plus" circle></el-button>
+                <el-button @click="showPushDialog" icon="el-icon-plus" plain>添加</el-button>
             </el-row>
         </el-header>
 
@@ -24,30 +28,16 @@
                 <!--</el-table-column>-->
                 <el-table-column prop="name" label="姓名">
                 </el-table-column>
-                <el-table-column prop="parent_name" label="父级">
-                </el-table-column>
-                <el-table-column prop="icon" label="图标">
-                </el-table-column>
-                <el-table-column prop="showMessage" label="显/隐">
+                <el-table-column prop="email" label="邮箱">
                 </el-table-column>
                 <el-table-column  label="操作">
                     <template slot-scope="scope">
-                        <template v-if="scope.row.is_show == 1">
-                            <el-button class="table-btn-custom"
-                                       type="text"
-                                       @click.native.prevent="updateStatusRow(scope.row, 0)"
-                                       size="small">
-                                隐藏
-                            </el-button>
-                        </template>
-                        <template v-else-if="scope.row.is_show == 0">
-                            <el-button class="table-btn-custom"
-                                       type="text"
-                                       @click.native.prevent="updateStatusRow(scope.row, 1)"
-                                       size="small">
-                                显示
-                            </el-button>
-                        </template>
+                        <el-button class="table-btn-custom"
+                                   type="text"
+                                   @click.native.prevent="showPushDialog(scope.row)"
+                                   size="small">
+                            编辑
+                        </el-button>
 
                         <el-button class="table-btn-custom"
                                    type="text"
@@ -59,41 +49,39 @@
                 </el-table-column>
             </el-table>
             <page
-                @handleCurrentChange="handleCurrentChange"
-                @handleSizeChange="handleSizeChange"
-                :currentPage="currentPage"
-                :pageSize="pageSize"
-                :total="total"
-                >
-                </page>
+                    @handleCurrentChange="handleCurrentChange"
+                    @handleSizeChange="handleSizeChange"
+                    :currentPage="currentPage"
+                    :pageSize="pageSize"
+                    :total="total"
+            >
+            </page>
         </el-main>
-    </el-container>
 
+
+    </el-container>
 </template>
 <script>
     import Page from '../common/page'
-    import ElHeader from "../../../../../../node_modules/element-ui/packages/header/src/main.vue";
+    import ElHeader from "element-ui/packages/header/src/main.vue";
+
     export default {
         data() {
-            // const item = {
-            //     date: '2016-05-02',
-            //     name: '王小虎',
-            //     address: '上海市普陀区金沙江路 1518 弄'
-            // };
             return {
                 tableData: [],
                 total: 0,
                 currentPage: 1,
-                loading: false
+                loading: false,
+                pushDialog: false
             }
         },
         components: {
             ElHeader,
-            page: Page
+            page: Page,
         },
         computed: {
             pageSize () {
-              return this.$store.state.pageSize
+                return this.$store.state.pageSize
             }
         },
         beforeMount () {
@@ -103,47 +91,81 @@
             // console.log(this.tableData);
         },
         methods: {
+            initData (rows)
+            {
+                let data = null;
+
+                if(!rows.data.hasError && rows.data.code == 200)
+                {
+                    data = rows.data.data.rows;
+                    console.log(data);
+                    if(!data)
+                        data = rows.data.data;
+
+                    if(!data)
+                        return true;
+                }else {
+                    this.showErrorMsg(rows.data.error);
+
+                    return [];
+                }
+                return data;
+            },
             async getData (limit=10, page=1, total='total', search=''){
                 this.loading = true;
-                let rows = await this.$api.getMeunList({
+                let rows = await this.$api.getUserList({
                     offset: (page - 1) * limit,
                     limit: limit
                 });
-                console.log(rows);
-                this.tableData = [];
-                if(!rows.data.hasError && rows.data.code == 200)
+                // console.log(rows);
+                this.tableData = this.initData(rows);
+                if(!!this.tableData)
                 {
-                    this.tableData = rows.data.data.rows;
                     this.loading = false;
-                }else
+                } else {
                     this.loading = false;
+                }
             },
             async deleteRow (row) {
                 let rows = await this.$api.deleteMeun(row.id);
 
-                if(!rows.data.hasError && rows.data.code == 200)
+                if(!!this.initData(rows))
                 {
                     this.getData();
                 }
             },
             async updateStatusRow (row, status) {
+                this.loading = true;
                 let rows = await this.$api.updateMeunStatus(row.id, {status: status});
-
-                if(!rows.data.hasError && rows.data.code == 200)
+                if(!!this.initData(rows))
                 {
                     this.getData();
                 }
             },
             handleCurrentChange (val) {
-              this.currentPage = val
-              console.log(val)
-              this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey)
+                this.currentPage = val
+                console.log(val)
+                this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey)
             },
             handleSizeChange (val) {
-              this.$store.commit('setPageSize', val)
-              this.currentPage = 1
-              this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey)
+                this.$store.commit('setPageSize', val)
+                this.currentPage = 1
+                this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey)
             },
+            showPushDialog () {
+                this.pushDialog = true;
+            },
+            closePushDialog () {
+                this.pushDialog = false;
+            },
+            showErrorMsg ($msg)
+            {
+                this.$message({
+                    type: "error",
+                    customClass: "msg-top",
+                    message: $msg
+                });
+            }
         }
     };
 </script>

@@ -12025,7 +12025,7 @@ exports.f = __webpack_require__(12) ? Object.defineProperty : function definePro
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(17)(function () {
+module.exports = !__webpack_require__(18)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -12061,118 +12061,6 @@ $exports.store = store;
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-var core = module.exports = { version: '2.5.7' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 19 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -12281,10 +12169,122 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.7' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(16);
+var isObject = __webpack_require__(17);
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
@@ -13696,7 +13696,7 @@ exports.default = function (ref) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(5);
-var core = __webpack_require__(15);
+var core = __webpack_require__(16);
 var ctx = __webpack_require__(140);
 var hide = __webpack_require__(10);
 var has = __webpack_require__(7);
@@ -13764,7 +13764,7 @@ module.exports = $export;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(16);
+var isObject = __webpack_require__(17);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function (it, S) {
@@ -13815,7 +13815,7 @@ module.exports = function (key) {
 /* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var core = __webpack_require__(15);
+var core = __webpack_require__(16);
 var global = __webpack_require__(5);
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
@@ -13878,7 +13878,7 @@ exports.f = __webpack_require__(14);
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(5);
-var core = __webpack_require__(15);
+var core = __webpack_require__(16);
 var LIBRARY = __webpack_require__(23);
 var wksExt = __webpack_require__(47);
 var defineProperty = __webpack_require__(11).f;
@@ -28877,7 +28877,7 @@ exports.default = _assign2.default || function (target) {
 /* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(12) && !__webpack_require__(17)(function () {
+module.exports = !__webpack_require__(12) && !__webpack_require__(18)(function () {
   return Object.defineProperty(__webpack_require__(71)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -28886,7 +28886,7 @@ module.exports = !__webpack_require__(12) && !__webpack_require__(17)(function (
 /* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(16);
+var isObject = __webpack_require__(17);
 var document = __webpack_require__(5).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
@@ -29490,7 +29490,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(210)
 }
-var normalizeComponent = __webpack_require__(19)
+var normalizeComponent = __webpack_require__(15)
 /* script */
 var __vue_script__ = __webpack_require__(212)
 /* template */
@@ -29537,7 +29537,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(19)
+var normalizeComponent = __webpack_require__(15)
 /* script */
 var __vue_script__ = __webpack_require__(214)
 /* template */
@@ -29584,7 +29584,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(85);
-module.exports = __webpack_require__(225);
+module.exports = __webpack_require__(228);
 
 
 /***/ }),
@@ -29629,7 +29629,7 @@ Vue.prototype.$api = __WEBPACK_IMPORTED_MODULE_3__api__["a" /* default */];
  */
 
 Vue.component('meun-index-component', __webpack_require__(203));
-Vue.component('users-index-component', __webpack_require__(220));
+Vue.component('users-index-component', __webpack_require__(223));
 
 var app = new Vue({
   el: '#app',
@@ -93079,7 +93079,7 @@ module.exports = { "default": __webpack_require__(138), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(139);
-module.exports = __webpack_require__(15).Object.assign;
+module.exports = __webpack_require__(16).Object.assign;
 
 
 /***/ }),
@@ -93143,7 +93143,7 @@ var IObject = __webpack_require__(73);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(17)(function () {
+module.exports = !$assign || __webpack_require__(18)(function () {
   var A = {};
   var B = {};
   // eslint-disable-next-line no-undef
@@ -93447,7 +93447,7 @@ __webpack_require__(160);
 __webpack_require__(166);
 __webpack_require__(167);
 __webpack_require__(168);
-module.exports = __webpack_require__(15).Symbol;
+module.exports = __webpack_require__(16).Symbol;
 
 
 /***/ }),
@@ -93463,7 +93463,7 @@ var DESCRIPTORS = __webpack_require__(12);
 var $export = __webpack_require__(37);
 var redefine = __webpack_require__(77);
 var META = __webpack_require__(161).KEY;
-var $fails = __webpack_require__(17);
+var $fails = __webpack_require__(18);
 var shared = __webpack_require__(42);
 var setToStringTag = __webpack_require__(46);
 var uid = __webpack_require__(24);
@@ -93473,7 +93473,7 @@ var wksDefine = __webpack_require__(48);
 var enumKeys = __webpack_require__(162);
 var isArray = __webpack_require__(163);
 var anObject = __webpack_require__(20);
-var isObject = __webpack_require__(16);
+var isObject = __webpack_require__(17);
 var toIObject = __webpack_require__(13);
 var toPrimitive = __webpack_require__(38);
 var createDesc = __webpack_require__(21);
@@ -93696,14 +93696,14 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ (function(module, exports, __webpack_require__) {
 
 var META = __webpack_require__(24)('meta');
-var isObject = __webpack_require__(16);
+var isObject = __webpack_require__(17);
 var has = __webpack_require__(7);
 var setDesc = __webpack_require__(11).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(17)(function () {
+var FREEZE = !__webpack_require__(18)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -95357,7 +95357,7 @@ if(false) {
 /* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(18)(false);
+exports = module.exports = __webpack_require__(19)(false);
 // imports
 
 
@@ -95498,7 +95498,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var escape = __webpack_require__(196);
-exports = module.exports = __webpack_require__(18)(false);
+exports = module.exports = __webpack_require__(19)(false);
 // imports
 
 
@@ -95604,6 +95604,11 @@ var fetch = function fetch(url) {
     // 更新菜单状态
     saveMeun: function saveMeun(id, data) {
         return fetch('/admin/meun/save/' + id, data, "POST");
+    },
+
+    // 获取用户列表
+    getUserList: function getUserList(data) {
+        return fetch('/admin/users/list', data);
     }
 });
 
@@ -96608,11 +96613,11 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(204)
 }
-var normalizeComponent = __webpack_require__(19)
+var normalizeComponent = __webpack_require__(15)
 /* script */
 var __vue_script__ = __webpack_require__(207)
 /* template */
-var __vue_template__ = __webpack_require__(219)
+var __vue_template__ = __webpack_require__(222)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -96680,7 +96685,7 @@ if(false) {
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(18)(false);
+exports = module.exports = __webpack_require__(19)(false);
 // imports
 
 
@@ -96831,6 +96836,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -96843,7 +96849,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             total: 0,
             currentPage: 1,
             loading: false,
-            pushDialog: false
+            pushDialog: false,
+            pushForm: {
+                name: "",
+                pid: "",
+                icon: "",
+                url: ""
+            }
         };
     },
 
@@ -97014,7 +97026,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.currentPage = 1;
             this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey);
         },
-        showPushDialog: function showPushDialog() {
+        showPushDialog: function showPushDialog(rows) {
+            this.pushForm.name = rows.name;
+            this.pushForm.pid = rows.pid;
+            this.pushForm.icon = rows.icon;
+            this.pushForm.url = rows.url;
             this.pushDialog = true;
         },
         closePushDialog: function closePushDialog() {
@@ -97834,7 +97850,7 @@ if(false) {
 /* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(18)(false);
+exports = module.exports = __webpack_require__(19)(false);
 // imports
 
 
@@ -97985,11 +98001,11 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(19)
+var normalizeComponent = __webpack_require__(15)
 /* script */
 var __vue_script__ = __webpack_require__(217)
 /* template */
-var __vue_template__ = __webpack_require__(218)
+var __vue_template__ = __webpack_require__(221)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -98035,6 +98051,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_file__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_file___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__common_file__);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -98073,28 +98091,29 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
         pushDialog: Boolean,
-        initData: [Function]
+        initData: [Function],
+        pushForm: Object
     },
     data: function data() {
         return {
             tableData: [],
-            ruleForm: {
-                name: "",
-                pid: "",
-                icon: "",
-                url: ""
-            },
             rules: {
                 name: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }, { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }]
             }
         };
     },
 
-    components: {},
+    components: {
+        file: __WEBPACK_IMPORTED_MODULE_1__common_file___default.a
+    },
     computed: {},
     beforeMount: function beforeMount() {},
     created: function created() {
@@ -98130,7 +98149,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 }
 
                             case 6:
-                            case "end":
+                            case 'end':
                                 return _context.stop();
                         }
                     }
@@ -98164,7 +98183,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                                         }
 
                                                         _context2.next = 3;
-                                                        return _this.$api.saveMeun(0, _this.ruleForm);
+                                                        return _this.$api.saveMeun(0, _this.pushForm);
 
                                                     case 3:
                                                         rows = _context2.sent;
@@ -98176,7 +98195,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
                                                         _this.closePushDialog();
                                                         _this.$emit("getData");
-                                                        return _context2.abrupt("return", false);
+                                                        return _context2.abrupt('return', false);
 
                                                     case 8:
                                                         _context2.next = 12;
@@ -98184,10 +98203,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
                                                     case 10:
                                                         console.log('error submit!!');
-                                                        return _context2.abrupt("return", false);
+                                                        return _context2.abrupt('return', false);
 
                                                     case 12:
-                                                    case "end":
+                                                    case 'end':
                                                         return _context2.stop();
                                                 }
                                             }
@@ -98200,7 +98219,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 }());
 
                             case 1:
-                            case "end":
+                            case 'end':
                                 return _context3.stop();
                         }
                     }
@@ -98218,12 +98237,133 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         },
         closePushDialog: function closePushDialog() {
             this.$emit("closePushDialog", false);
+        },
+        choseParent: function choseParent(index) {
+            //                this.pushForm.pid = index;
+            //                console.log(index);
         }
     }
 });
 
 /***/ }),
 /* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(15)
+/* script */
+var __vue_script__ = __webpack_require__(219)
+/* template */
+var __vue_template__ = __webpack_require__(220)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/admin/components/common/file.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6bc2ba58", Component.options)
+  } else {
+    hotAPI.reload("data-v-6bc2ba58", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 219 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            dialogImageUrl: '',
+            dialogVisible: false
+        };
+    },
+
+    methods: {
+        handleRemove: function handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePictureCardPreview: function handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        }
+    }
+});
+
+/***/ }),
+/* 220 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "el-upload",
+    {
+      attrs: {
+        action: "/admin/file/upload",
+        "list-type": "picture-card",
+        "on-preview": _vm.handlePictureCardPreview,
+        "on-remove": _vm.handleRemove
+      }
+    },
+    [_c("i", { staticClass: "el-icon-plus" })]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6bc2ba58", module.exports)
+  }
+}
+
+/***/ }),
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -98248,9 +98388,9 @@ var render = function() {
       _c(
         "el-form",
         {
-          ref: "ruleForm",
+          ref: "pushForm",
           attrs: {
-            model: _vm.ruleForm,
+            model: _vm.pushForm,
             rules: _vm.rules,
             "label-width": "80px"
           }
@@ -98262,11 +98402,11 @@ var render = function() {
             [
               _c("el-input", {
                 model: {
-                  value: _vm.ruleForm.name,
+                  value: _vm.pushForm.name,
                   callback: function($$v) {
-                    _vm.$set(_vm.ruleForm, "name", $$v)
+                    _vm.$set(_vm.pushForm, "name", $$v)
                   },
-                  expression: "ruleForm.name"
+                  expression: "pushForm.name"
                 }
               })
             ],
@@ -98279,11 +98419,11 @@ var render = function() {
             [
               _c("el-input", {
                 model: {
-                  value: _vm.ruleForm.icon,
+                  value: _vm.pushForm.icon,
                   callback: function($$v) {
-                    _vm.$set(_vm.ruleForm, "icon", $$v)
+                    _vm.$set(_vm.pushForm, "icon", $$v)
                   },
-                  expression: "ruleForm.icon"
+                  expression: "pushForm.icon"
                 }
               })
             ],
@@ -98296,11 +98436,11 @@ var render = function() {
             [
               _c("el-input", {
                 model: {
-                  value: _vm.ruleForm.url,
+                  value: _vm.pushForm.url,
                   callback: function($$v) {
-                    _vm.$set(_vm.ruleForm, "url", $$v)
+                    _vm.$set(_vm.pushForm, "url", $$v)
                   },
-                  expression: "ruleForm.url"
+                  expression: "pushForm.url"
                 }
               })
             ],
@@ -98315,12 +98455,13 @@ var render = function() {
                 "el-select",
                 {
                   attrs: { filterable: "", placeholder: "请选择" },
+                  on: { change: _vm.choseParent },
                   model: {
-                    value: _vm.ruleForm.pid,
+                    value: _vm.pushForm.pid,
                     callback: function($$v) {
-                      _vm.$set(_vm.ruleForm, "pid", $$v)
+                      _vm.$set(_vm.pushForm, "pid", $$v)
                     },
-                    expression: "ruleForm.pid"
+                    expression: "pushForm.pid"
                   }
                 },
                 _vm._l(_vm.tableData, function(item) {
@@ -98355,7 +98496,7 @@ var render = function() {
               attrs: { type: "primary" },
               on: {
                 click: function($event) {
-                  _vm.submitForm("ruleForm")
+                  _vm.submitForm("pushForm")
                 }
               }
             },
@@ -98379,7 +98520,7 @@ if (false) {
 }
 
 /***/ }),
-/* 219 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -98436,7 +98577,7 @@ var render = function() {
               attrs: { data: _vm.tableData }
             },
             [
-              _c("el-table-column", { attrs: { prop: "name", label: "姓名" } }),
+              _c("el-table-column", { attrs: { prop: "name", label: "名称" } }),
               _vm._v(" "),
               _c("el-table-column", {
                 attrs: { prop: "parent_name", label: "父级" }
@@ -98561,7 +98702,11 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("push-dialog", {
-        attrs: { pushDialog: _vm.pushDialog, initData: _vm.initData },
+        attrs: {
+          pushDialog: _vm.pushDialog,
+          pushForm: _vm.pushForm,
+          initData: _vm.initData
+        },
         on: { closePushDialog: _vm.closePushDialog, getData: _vm.getData }
       })
     ],
@@ -98579,19 +98724,19 @@ if (false) {
 }
 
 /***/ }),
-/* 220 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(221)
+  __webpack_require__(224)
 }
-var normalizeComponent = __webpack_require__(19)
+var normalizeComponent = __webpack_require__(15)
 /* script */
-var __vue_script__ = __webpack_require__(223)
+var __vue_script__ = __webpack_require__(226)
 /* template */
-var __vue_template__ = __webpack_require__(224)
+var __vue_template__ = __webpack_require__(227)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -98630,13 +98775,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 221 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(222);
+var content = __webpack_require__(225);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -98656,21 +98801,21 @@ if(false) {
 }
 
 /***/ }),
-/* 222 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(18)(false);
+exports = module.exports = __webpack_require__(19)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n.el-header {\n    background-color: #B3C0D1;\n    color: #333;\n    line-height: 60px;\n}\n.el-aside {\n    color: #333;\n}\n", ""]);
+exports.push([module.i, "\n.el-header {\n    background-color: #B3C0D1;\n    color: #333;\n    line-height: 60px;\n}\n.el-aside {\n    color: #333;\n}\n.msg-top {\n    top: 100px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 223 */
+/* 226 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98679,8 +98824,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_page__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_page___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__common_page__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_element_ui_packages_header_src_main_vue__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_element_ui_packages_header_src_main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__node_modules_element_ui_packages_header_src_main_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue__);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -98748,35 +98893,23 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        // const item = {
-        //     date: '2016-05-02',
-        //     name: '王小虎',
-        //     address: '上海市普陀区金沙江路 1518 弄'
-        // };
         return {
             tableData: [],
             total: 0,
             currentPage: 1,
-            loading: false
+            loading: false,
+            pushDialog: false
         };
     },
 
     components: {
-        ElHeader: __WEBPACK_IMPORTED_MODULE_2__node_modules_element_ui_packages_header_src_main_vue___default.a,
+        ElHeader: __WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue___default.a,
         page: __WEBPACK_IMPORTED_MODULE_1__common_page___default.a
     },
     computed: {
@@ -98808,6 +98941,22 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }(),
 
     methods: {
+        initData: function initData(rows) {
+            var data = null;
+
+            if (!rows.data.hasError && rows.data.code == 200) {
+                data = rows.data.data.rows;
+                console.log(data);
+                if (!data) data = rows.data.data;
+
+                if (!data) return true;
+            } else {
+                this.showErrorMsg(rows.data.error);
+
+                return [];
+            }
+            return data;
+        },
         getData: function () {
             var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
                 var limit = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
@@ -98821,7 +98970,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             case 0:
                                 this.loading = true;
                                 _context2.next = 3;
-                                return this.$api.getMeunList({
+                                return this.$api.getUserList({
                                     offset: (page - 1) * limit,
                                     limit: limit
                                 });
@@ -98829,14 +98978,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             case 3:
                                 rows = _context2.sent;
 
-                                console.log(rows);
-                                this.tableData = [];
-                                if (!rows.data.hasError && rows.data.code == 200) {
-                                    this.tableData = rows.data.data.rows;
+                                // console.log(rows);
+                                this.tableData = this.initData(rows);
+                                if (!!this.tableData) {
                                     this.loading = false;
-                                } else this.loading = false;
+                                } else {
+                                    this.loading = false;
+                                }
 
-                            case 7:
+                            case 6:
                             case 'end':
                                 return _context2.stop();
                         }
@@ -98864,7 +99014,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 rows = _context3.sent;
 
 
-                                if (!rows.data.hasError && rows.data.code == 200) {
+                                if (!!this.initData(rows)) {
                                     this.getData();
                                 }
 
@@ -98889,18 +99039,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                     while (1) {
                         switch (_context4.prev = _context4.next) {
                             case 0:
-                                _context4.next = 2;
+                                this.loading = true;
+                                _context4.next = 3;
                                 return this.$api.updateMeunStatus(row.id, { status: status });
 
-                            case 2:
+                            case 3:
                                 rows = _context4.sent;
 
-
-                                if (!rows.data.hasError && rows.data.code == 200) {
+                                if (!!this.initData(rows)) {
                                     this.getData();
                                 }
 
-                            case 4:
+                            case 5:
                             case 'end':
                                 return _context4.stop();
                         }
@@ -98923,12 +99073,25 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.$store.commit('setPageSize', val);
             this.currentPage = 1;
             this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey);
+        },
+        showPushDialog: function showPushDialog() {
+            this.pushDialog = true;
+        },
+        closePushDialog: function closePushDialog() {
+            this.pushDialog = false;
+        },
+        showErrorMsg: function showErrorMsg($msg) {
+            this.$message({
+                type: "error",
+                customClass: "msg-top",
+                message: $msg
+            });
         }
     }
 });
 
 /***/ }),
-/* 224 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -98952,9 +99115,14 @@ var render = function() {
           _c(
             "el-row",
             [
-              _c("el-button", {
-                attrs: { type: "primary", icon: "el-icon-plus", circle: "" }
-              })
+              _c(
+                "el-button",
+                {
+                  attrs: { icon: "el-icon-plus", plain: "" },
+                  on: { click: _vm.showPushDialog }
+                },
+                [_vm._v("添加")]
+              )
             ],
             1
           )
@@ -98983,13 +99151,7 @@ var render = function() {
               _c("el-table-column", { attrs: { prop: "name", label: "姓名" } }),
               _vm._v(" "),
               _c("el-table-column", {
-                attrs: { prop: "parent_name", label: "父级" }
-              }),
-              _vm._v(" "),
-              _c("el-table-column", { attrs: { prop: "icon", label: "图标" } }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { prop: "showMessage", label: "显/隐" }
+                attrs: { prop: "email", label: "邮箱" }
               }),
               _vm._v(" "),
               _c("el-table-column", {
@@ -98999,49 +99161,24 @@ var render = function() {
                     key: "default",
                     fn: function(scope) {
                       return [
-                        scope.row.is_show == 1
-                          ? [
-                              _c(
-                                "el-button",
-                                {
-                                  staticClass: "table-btn-custom",
-                                  attrs: { type: "text", size: "small" },
-                                  nativeOn: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      _vm.updateStatusRow(scope.row, 0)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                            隐藏\n                        "
-                                  )
-                                ]
-                              )
-                            ]
-                          : scope.row.is_show == 0
-                            ? [
-                                _c(
-                                  "el-button",
-                                  {
-                                    staticClass: "table-btn-custom",
-                                    attrs: { type: "text", size: "small" },
-                                    nativeOn: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.updateStatusRow(scope.row, 1)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                            显示\n                        "
-                                    )
-                                  ]
-                                )
-                              ]
-                            : _vm._e(),
+                        _c(
+                          "el-button",
+                          {
+                            staticClass: "table-btn-custom",
+                            attrs: { type: "text", size: "small" },
+                            nativeOn: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.showPushDialog(scope.row)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        编辑\n                    "
+                            )
+                          ]
+                        ),
                         _vm._v(" "),
                         _c(
                           "el-button",
@@ -99099,7 +99236,7 @@ if (false) {
 }
 
 /***/ }),
-/* 225 */
+/* 228 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -10,59 +10,46 @@ namespace App\Http\Controllers\admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Users;
 use Illuminate\Http\Request;
-use Validator;
-use Illuminate\Session\Store as Session;
 
 use AjaxService;
-use Auth;
+use Validator;
+
 
 
 class UserController extends Controller
 {
 
-    public function index()
+    public function index ()
     {
-        return view("admin.user.login");
+
     }
 
+    public function lists ()
+    {
+
+        $sort   = request("sort",'id');
+        $order  = request('order','desc');
+        $offset = request('offset',0);
+        $limit  = request('limit',10);
+
+        $model = Users::select();
+
+        $total = $model->count();
+        $rows = $model->orderBy($sort,$order)
+            ->offset($offset)
+            ->limit($limit)
+            ->get()
+            ->each(function($item) {
+            });
+
+        return response()->ajax(['total' => $total, 'rows' => $rows, "info" => ""]);
+    }
 
     public function home()
     {
-//        Auth::guard("admin")->logout();
-//        dd(Auth::guard("admin")->user());
         return view("admin.user.home");
-    }
-
-    public function login(Request $request, Session $session)
-    {
-        $username = request("username");
-        $password = request("password");
-
-        AjaxService::setMsg("登入成功！");
-        if(!captcha_check($request->input("captcha")))
-        {
-            AjaxService::setCode(403);
-            AjaxService::setMsg("验证码错误！");
-
-        }
-
-        if(!Auth::guard("admin")->attempt(['email' => $username, 'password' => $password]))
-        {
-            AjaxService::setCode(403);
-            AjaxService::setMsg("账号或密码错误！");
-        }
-
-        return AjaxService::responseJson();
-    }
-
-
-    public function logout()
-    {
-
-        Auth::guard("admin")->logout();
-
-        return redirect("admin/home");
     }
 
 

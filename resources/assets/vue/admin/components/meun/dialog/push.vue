@@ -1,25 +1,27 @@
 <template>
     <el-dialog title="添加菜单" :visible.sync="pushDialog" :before-close="closePushDialog">
-        <el-form  ref="ruleForm" :model="ruleForm" :rules="rules" label-width="80px">
+        <el-form  ref="pushForm" :model="pushForm" :rules="rules" label-width="80px">
+            <!--<file></file>-->
             <el-form-item label="菜单名称">
-                <el-input v-model="ruleForm.name"></el-input>
+                <el-input v-model="pushForm.name"></el-input>
             </el-form-item>
 
             <el-form-item label="菜单图标">
-                <el-input v-model="ruleForm.icon"></el-input>
+                <el-input v-model="pushForm.icon"></el-input>
             </el-form-item>
 
             <el-form-item label="菜单链接">
-                <el-input v-model="ruleForm.url"></el-input>
+                <el-input v-model="pushForm.url"></el-input>
             </el-form-item>
 
             <el-form-item label="父级菜单">
-                <el-select v-model="ruleForm.pid" filterable placeholder="请选择">
+                <el-select v-model="pushForm.pid" filterable placeholder="请选择" @change="choseParent">
                     <el-option
                             v-for="item in tableData"
                             :key="item.id"
                             :label="item.name"
-                            :value="item.id">
+                            :value="item.id"
+                    >
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -27,26 +29,23 @@
 
         <div slot="footer" class="dialog-footer">
             <el-button @click="closePushDialog">取 消</el-button>
-            <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+            <el-button type="primary" @click="submitForm('pushForm')">确 定</el-button>
         </div>
     </el-dialog>
 </template>
 
 <script>
+    import file from '../../common/file'
+
     export default {
         props: {
             pushDialog: Boolean,
-            initData: [Function]
+            initData: [Function],
+            pushForm: Object
         },
         data() {
             return {
                 tableData: [],
-                ruleForm: {
-                    name: "",
-                    pid: "",
-                    icon: "",
-                    url: ""
-                },
                 rules: {
                     name: [
                         { required: true, message: '请输入菜单名称', trigger: 'blur' },
@@ -57,7 +56,7 @@
 
         },
         components: {
-
+            file
         },
         computed: {
 
@@ -85,7 +84,7 @@
             async submitForm(formName) {
                 this.$refs[formName].validate (async (valid) => {
                     if (valid) {
-                        let rows = await this.$api.saveMeun(0, this.ruleForm);
+                        let rows = await this.$api.saveMeun(0, this.pushForm);
                         if(!!this.initData(rows))
                         {
                             this.closePushDialog();
@@ -103,6 +102,10 @@
             },
             closePushDialog () {
                 this.$emit("closePushDialog", false);
+            },
+            choseParent(index) {
+//                this.pushForm.pid = index;
+//                console.log(index);
             }
 
         }

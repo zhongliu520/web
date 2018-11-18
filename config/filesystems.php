@@ -66,16 +66,15 @@ return [
 
         'oss' => [
             'driver'     => 'oss',
-            'access_id'  => env('OSS_ACCESS_ID','LTAIiqj1lZZOlvOu'),
-            'access_key' => env('OSS_ACCESS_KEY','zsuSgcHMQWUChsMeJ5ZRquI6dEfLwR'),
-            'bucket'     => env('OSS_BUCKET','zhongliu'),
+            'access_id'  => 'LTAIiqj1lZZOlvOu',
+            'access_key' =>'zsuSgcHMQWUChsMeJ5ZRquI6dEfLwR',
+            'bucket'     =>'zhongliu',
             //ECS访问的内网Endpoint oss-cn-hangzhou-internal.aliyuncs.com
             //外网Endpoint  oss-cn-hangzhou.aliyuncs.com
-            'endpoint'   => env('OSS_ENDPOINT','oss-cn-hangzhou.aliyuncs.com'),
+            'endpoint'   => 'oss-cn-hongkong.aliyuncs.com',
             //'prefix'     => env('OSS_PREFIX', 'v2'), // optional
-            'url'        => env('OSS_URL','https://zhongliu.oss-cn-hangzhou.aliyuncs.com'),
+            'url'        => 'https://zhongliu.oss-cn-hongkong.aliyuncs.com',
         ],
-
     ],
 
 ];
