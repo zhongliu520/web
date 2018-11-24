@@ -7,20 +7,30 @@ use App\Http\Controllers\Controller;
 
 use App\Services\Admin\FileService;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class FileController extends Controller
 {
-
-    public function upload()
+    /**
+     * 上传头像
+     *
+     * @return mixed
+     */
+    public function uploadAvatar()
     {
         $file = request()->file("file");
         $fileService = new FileService();
 
-        $path = Storage::disk('oss')->put('avatar', $file);
+        try {
 
-        $fileService->setPath($path);
+            $path = Storage::disk('oss')->put('avatar', $file);
+            $fileService->setPath($path);
 
-        return $this->ajax($fileService->geAliyuntUrl());
+        } catch (Exception $e) {
+            return response()->errorAjax($e->getMessage());
+        }
+
+        return response()->ajax($fileService->geAliyuntUrl());
     }
 
 }

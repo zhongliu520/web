@@ -58,11 +58,19 @@
             </page>
         </el-main>
 
+        <push-dialog
+                :pushDialog="pushDialog"
+                @closePushDialog="closePushDialog"
+                @getData="getData"
+                :pushForm="pushForm"
+                :initData="initData">
 
+        </push-dialog>
     </el-container>
 </template>
 <script>
-    import Page from '../common/page'
+    import Page from '../common/page';
+    import PushDialog from "./dialog/push";
     import ElHeader from "element-ui/packages/header/src/main.vue";
 
     export default {
@@ -72,12 +80,20 @@
                 total: 0,
                 currentPage: 1,
                 loading: false,
-                pushDialog: false
+                pushDialog: false,
+                pushForm: {
+                    name: "",
+                    email: "",
+                    password: "",
+                    repeatPassword: "",
+                    headPortrait: ""
+                }
             }
         },
         components: {
             ElHeader,
             page: Page,
+            "push-dialog": PushDialog
         },
         computed: {
             pageSize () {
@@ -94,20 +110,15 @@
             initData (rows)
             {
                 let data = null;
-
                 if(!rows.data.hasError && rows.data.code == 200)
                 {
-                    data = rows.data.data.rows;
-                    console.log(data);
-                    if(!data)
-                        data = rows.data.data;
-
+                    data = rows.data.data;
                     if(!data)
                         return true;
                 }else {
                     this.showErrorMsg(rows.data.error);
 
-                    return [];
+                    return false;
                 }
                 return data;
             },
@@ -118,7 +129,10 @@
                     limit: limit
                 });
                 // console.log(rows);
-                this.tableData = this.initData(rows);
+                let data = this.initData(rows);
+                this.tableData = data.rows;
+                this.total = data.total;
+
                 if(!!this.tableData)
                 {
                     this.loading = false;

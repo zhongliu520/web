@@ -95609,6 +95609,9 @@ var fetch = function fetch(url) {
     // 获取用户列表
     getUserList: function getUserList(data) {
         return fetch('/admin/users/list', data);
+    },
+    createUser: function createUser(data) {
+        return fetch('/admin/users/create', data, "POST");
     }
 });
 
@@ -96895,17 +96898,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     methods: {
         initData: function initData(rows) {
             var data = null;
-
             if (!rows.data.hasError && rows.data.code == 200) {
-                data = rows.data.data.rows;
-                console.log(data);
-                if (!data) data = rows.data.data;
-
+                data = rows.data.data;
                 if (!data) return true;
             } else {
                 this.showErrorMsg(rows.data.error);
 
-                return [];
+                return false;
             }
             return data;
         },
@@ -96915,7 +96914,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
                 var total = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'total';
                 var search = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-                var rows;
+                var rows, data;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
@@ -96931,14 +96930,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 rows = _context2.sent;
 
                                 // console.log(rows);
-                                this.tableData = this.initData(rows);
+                                data = this.initData(rows);
+
+                                this.tableData = data.rows;
+                                this.total = data.total;
+
                                 if (!!this.tableData) {
                                     this.loading = false;
                                 } else {
                                     this.loading = false;
                                 }
 
-                            case 6:
+                            case 8:
                             case "end":
                                 return _context2.stop();
                         }
@@ -98824,8 +98827,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_page__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_page___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__common_page__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dialog_push__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dialog_push___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__dialog_push__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_element_ui_packages_header_src_main_vue__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_element_ui_packages_header_src_main_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_element_ui_packages_header_src_main_vue__);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -98893,6 +98898,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -98904,13 +98917,21 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             total: 0,
             currentPage: 1,
             loading: false,
-            pushDialog: false
+            pushDialog: false,
+            pushForm: {
+                name: "",
+                email: "",
+                password: "",
+                repeatPassword: "",
+                headPortrait: ""
+            }
         };
     },
 
     components: {
-        ElHeader: __WEBPACK_IMPORTED_MODULE_2_element_ui_packages_header_src_main_vue___default.a,
-        page: __WEBPACK_IMPORTED_MODULE_1__common_page___default.a
+        ElHeader: __WEBPACK_IMPORTED_MODULE_3_element_ui_packages_header_src_main_vue___default.a,
+        page: __WEBPACK_IMPORTED_MODULE_1__common_page___default.a,
+        "push-dialog": __WEBPACK_IMPORTED_MODULE_2__dialog_push___default.a
     },
     computed: {
         pageSize: function pageSize() {
@@ -98926,7 +98947,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
-                        case 'end':
+                        case "end":
                             return _context.stop();
                     }
                 }
@@ -98943,17 +98964,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     methods: {
         initData: function initData(rows) {
             var data = null;
-
             if (!rows.data.hasError && rows.data.code == 200) {
-                data = rows.data.data.rows;
-                console.log(data);
-                if (!data) data = rows.data.data;
-
+                data = rows.data.data;
                 if (!data) return true;
             } else {
                 this.showErrorMsg(rows.data.error);
 
-                return [];
+                return false;
             }
             return data;
         },
@@ -98963,7 +98980,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
                 var total = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'total';
                 var search = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-                var rows;
+                var rows, data;
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
                     while (1) {
                         switch (_context2.prev = _context2.next) {
@@ -98979,15 +98996,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 rows = _context2.sent;
 
                                 // console.log(rows);
-                                this.tableData = this.initData(rows);
+                                data = this.initData(rows);
+
+                                this.tableData = data.rows;
+                                this.total = data.total;
+
                                 if (!!this.tableData) {
                                     this.loading = false;
                                 } else {
                                     this.loading = false;
                                 }
 
-                            case 6:
-                            case 'end':
+                            case 8:
+                            case "end":
                                 return _context2.stop();
                         }
                     }
@@ -99019,7 +99040,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 }
 
                             case 4:
-                            case 'end':
+                            case "end":
                                 return _context3.stop();
                         }
                     }
@@ -99051,7 +99072,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 }
 
                             case 5:
-                            case 'end':
+                            case "end":
                                 return _context4.stop();
                         }
                     }
@@ -99220,7 +99241,16 @@ var render = function() {
           })
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("push-dialog", {
+        attrs: {
+          pushDialog: _vm.pushDialog,
+          pushForm: _vm.pushForm,
+          initData: _vm.initData
+        },
+        on: { closePushDialog: _vm.closePushDialog, getData: _vm.getData }
+      })
     ],
     1
   )
@@ -99240,6 +99270,537 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 229 */,
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(233)
+}
+var normalizeComponent = __webpack_require__(15)
+/* script */
+var __vue_script__ = __webpack_require__(231)
+/* template */
+var __vue_template__ = __webpack_require__(232)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/vue/admin/components/users/dialog/push.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-599ef7ae", Component.options)
+  } else {
+    hotAPI.reload("data-v-599ef7ae", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 231 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        pushDialog: Boolean,
+        initData: [Function],
+        pushForm: Object
+    },
+    data: function data() {
+        return {
+            imageUrl: "",
+            tableData: [],
+            loading: false,
+            rules: {
+                name: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }, { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }]
+            }
+        };
+    },
+
+    components: {},
+    computed: {},
+    beforeMount: function beforeMount() {},
+    created: function created() {
+        this.pushDialog = false;
+    },
+
+    methods: {
+        getData: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+                var limit = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 100;
+                var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+                var total = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'total';
+                var search = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+                var rows;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.next = 2;
+                                return this.$api.getMeunList({
+                                    offset: (page - 1) * limit,
+                                    limit: limit
+                                });
+
+                            case 2:
+                                rows = _context.sent;
+
+                                console.log(rows);
+                                this.tableData = [];
+                                if (!rows.data.hasError && rows.data.code == 200) {
+                                    this.tableData = rows.data.data.rows;
+                                }
+
+                            case 6:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function getData() {
+                return _ref.apply(this, arguments);
+            }
+
+            return getData;
+        }(),
+        submitForm: function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(formName) {
+                var _this = this;
+
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                this.$refs[formName].validate(function () {
+                                    var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(valid) {
+                                        var rows;
+                                        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                                            while (1) {
+                                                switch (_context2.prev = _context2.next) {
+                                                    case 0:
+                                                        if (!valid) {
+                                                            _context2.next = 10;
+                                                            break;
+                                                        }
+
+                                                        _context2.next = 3;
+                                                        return _this.$api.createUser(_this.pushForm);
+
+                                                    case 3:
+                                                        rows = _context2.sent;
+
+                                                        if (!_this.initData(rows)) {
+                                                            _context2.next = 8;
+                                                            break;
+                                                        }
+
+                                                        _this.closePushDialog();
+                                                        _this.$emit("getData");
+                                                        return _context2.abrupt('return', false);
+
+                                                    case 8:
+                                                        _context2.next = 12;
+                                                        break;
+
+                                                    case 10:
+                                                        console.log('error submit!!');
+                                                        return _context2.abrupt('return', false);
+
+                                                    case 12:
+                                                    case 'end':
+                                                        return _context2.stop();
+                                                }
+                                            }
+                                        }, _callee2, _this);
+                                    }));
+
+                                    return function (_x6) {
+                                        return _ref3.apply(this, arguments);
+                                    };
+                                }());
+
+                            case 1:
+                            case 'end':
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, this);
+            }));
+
+            function submitForm(_x5) {
+                return _ref2.apply(this, arguments);
+            }
+
+            return submitForm;
+        }(),
+        resetForm: function resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+        closePushDialog: function closePushDialog() {
+            this.$emit("closePushDialog", false);
+        },
+        choseParent: function choseParent(index) {
+            //                this.pushForm.pid = index;
+            //                console.log(index);
+        },
+        handleAvatarSuccess: function handleAvatarSuccess(res, file) {
+
+            console.log(res);
+            var tempImage = this.initData({ data: res });
+            if (tempImage) {
+                this.loading = false;
+                this.imageUrl = tempImage;
+                this.pushForm.headPortrait = tempImage;
+            }
+        },
+        beforeAvatarUpload: function beforeAvatarUpload(file) {
+            var isJPG = file.type === 'image/jpeg';
+            var isLt2M = file.size / 1024 / 1024 < 2;
+            this.loading = true;
+
+            if (!isJPG) {
+                this.$message.error('上传头像图片只能是 JPG 格式!');
+            }
+            if (!isLt2M) {
+                this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            return isJPG && isLt2M;
+        }
+    }
+});
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "el-dialog",
+    {
+      attrs: {
+        title: "添加用户",
+        visible: _vm.pushDialog,
+        "before-close": _vm.closePushDialog
+      },
+      on: {
+        "update:visible": function($event) {
+          _vm.pushDialog = $event
+        }
+      }
+    },
+    [
+      _c(
+        "el-form",
+        {
+          ref: "pushForm",
+          attrs: {
+            model: _vm.pushForm,
+            rules: _vm.rules,
+            "label-width": "80px"
+          }
+        },
+        [
+          _c(
+            "el-form-item",
+            { attrs: { label: "头像" } },
+            [
+              _c(
+                "el-upload",
+                {
+                  directives: [
+                    {
+                      name: "loading",
+                      rawName: "v-loading",
+                      value: _vm.loading,
+                      expression: "loading"
+                    }
+                  ],
+                  staticClass: "avatar-uploader",
+                  attrs: {
+                    action: "/admin/file/upload",
+                    "show-file-list": false,
+                    "on-success": _vm.handleAvatarSuccess,
+                    "before-upload": _vm.beforeAvatarUpload
+                  }
+                },
+                [
+                  _vm.imageUrl
+                    ? _c("img", {
+                        staticClass: "avatar",
+                        attrs: { src: _vm.imageUrl }
+                      })
+                    : _c("i", {
+                        staticClass: "el-icon-plus avatar-uploader-icon"
+                      })
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "姓名" } },
+            [
+              _c("el-input", {
+                model: {
+                  value: _vm.pushForm.name,
+                  callback: function($$v) {
+                    _vm.$set(_vm.pushForm, "name", $$v)
+                  },
+                  expression: "pushForm.name"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "邮箱" } },
+            [
+              _c("el-input", {
+                model: {
+                  value: _vm.pushForm.email,
+                  callback: function($$v) {
+                    _vm.$set(_vm.pushForm, "email", $$v)
+                  },
+                  expression: "pushForm.email"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "密码" } },
+            [
+              _c("el-input", {
+                model: {
+                  value: _vm.pushForm.password,
+                  callback: function($$v) {
+                    _vm.$set(_vm.pushForm, "password", $$v)
+                  },
+                  expression: "pushForm.password"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "确认密码" } },
+            [
+              _c("el-input", {
+                model: {
+                  value: _vm.pushForm.repeatPassword,
+                  callback: function($$v) {
+                    _vm.$set(_vm.pushForm, "repeatPassword", $$v)
+                  },
+                  expression: "pushForm.repeatPassword"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dialog-footer",
+          attrs: { slot: "footer" },
+          slot: "footer"
+        },
+        [
+          _c("el-button", { on: { click: _vm.closePushDialog } }, [
+            _vm._v("取 消")
+          ]),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            {
+              attrs: { type: "primary" },
+              on: {
+                click: function($event) {
+                  _vm.submitForm("pushForm")
+                }
+              }
+            },
+            [_vm._v("确 定")]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-599ef7ae", module.exports)
+  }
+}
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(234);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(49)("a8c8b242", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-599ef7ae\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./push.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-599ef7ae\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./push.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(19)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.avatar-uploader .el-upload {\n    border: 1px dashed #d9d9d9;\n    border-radius: 6px;\n    cursor: pointer;\n    position: relative;\n    overflow: hidden;\n}\n.avatar-uploader .el-upload:hover {\n    border-color: #409EFF;\n}\n.avatar-uploader-icon {\n    font-size: 28px;\n    color: #8c939d;\n    width: 178px;\n    height: 178px;\n    line-height: 178px;\n    text-align: center;\n}\n.avatar {\n    width: 178px;\n    height: 178px;\n    display: block;\n}\ninput[type=file] {\n    display: none;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

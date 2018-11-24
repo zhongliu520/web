@@ -131,20 +131,15 @@
             initData (rows)
             {
                 let data = null;
-
                 if(!rows.data.hasError && rows.data.code == 200)
                 {
-                    data = rows.data.data.rows;
-                    console.log(data);
-                    if(!data)
-                        data = rows.data.data;
-
+                    data = rows.data.data;
                     if(!data)
                         return true;
                 }else {
                     this.showErrorMsg(rows.data.error);
 
-                    return [];
+                    return false;
                 }
                 return data;
             },
@@ -155,7 +150,10 @@
                     limit: limit
                 });
                 // console.log(rows);
-                this.tableData = this.initData(rows);
+                let data = this.initData(rows);
+                this.tableData = data.rows;
+                this.total = data.total;
+
                 if(!!this.tableData)
                 {
                     this.loading = false;
