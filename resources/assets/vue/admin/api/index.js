@@ -53,5 +53,8 @@ export default{
     },
     createUser (data) {
         return fetch(`/admin/users/create`, data, "POST");
+    },
+    saveUser (data, id) {
+        return fetch(`/admin/users/save/${id}`, data, "POST");
     }
 }

@@ -21,9 +21,10 @@ class FileController extends Controller
         $file = request()->file("file");
         $fileService = new FileService();
 
+        $now = date("Ymd");
         try {
 
-            $path = Storage::disk('oss')->put('avatar', $file);
+            $path = Storage::disk('oss')->put("avatar/{$now}", $file);
             $fileService->setPath($path);
 
         } catch (Exception $e) {

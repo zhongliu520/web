@@ -40,7 +40,7 @@
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload"
                         v-loading="loading">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <img v-if="pushForm.headPortrait" :src="pushForm.headPortrait" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </el-form-item>
@@ -54,11 +54,11 @@
             </el-form-item>
 
             <el-form-item label="密码">
-                <el-input v-model="pushForm.password"></el-input>
+                <el-input type="password" v-model="pushForm.password"></el-input>
             </el-form-item>
 
             <el-form-item label="确认密码">
-                <el-input v-model="pushForm.repeatPassword"></el-input>
+                <el-input type="password" v-model="pushForm.repeatPassword"></el-input>
             </el-form-item>
         </el-form>
 
@@ -117,7 +117,14 @@
             async submitForm(formName) {
                 this.$refs[formName].validate (async (valid) => {
                     if (valid) {
-                        let rows = await this.$api.createUser(this.pushForm);
+
+                        let rows = {};
+                        if(this.pushForm.id > 0) {
+                            rows = await this.$api.saveUser(this.pushForm, this.pushForm.id);
+                        } else {
+                            rows = await this.$api.createUser(this.pushForm);
+                        }
+
                         if(!!this.initData(rows))
                         {
                             this.closePushDialog();
@@ -147,7 +154,7 @@
                 let tempImage = this.initData({data: res});
                 if(tempImage) {
                     this.loading = false;
-                    this.imageUrl = tempImage;
+//                    this.imageUrl = tempImage;
                     this.pushForm.headPortrait = tempImage;
                 }
             },

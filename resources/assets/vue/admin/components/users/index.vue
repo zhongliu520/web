@@ -82,6 +82,7 @@
                 loading: false,
                 pushDialog: false,
                 pushForm: {
+                    id: 0,
                     name: "",
                     email: "",
                     password: "",
@@ -166,7 +167,16 @@
                 this.currentPage = 1
                 this.getData(this.pageSize, this.currentPage, this.typeValue, 'total', this.searchKey)
             },
-            showPushDialog () {
+            showPushDialog (row) {
+                this.pushForm = {
+                    id: row.id,
+                    name: row.name,
+                    email: row.email,
+                    password: row.password,
+                    repeatPassword: row.password,
+                    headPortrait: row.head_portrait
+                }
+
                 this.pushDialog = true;
             },
             closePushDialog () {
