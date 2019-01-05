@@ -73,7 +73,7 @@ return [
             //外网Endpoint  oss-cn-hangzhou.aliyuncs.com
             'endpoint'   => 'oss-cn-hongkong.aliyuncs.com',
             //'prefix'     => env('OSS_PREFIX', 'v2'), // optional
-            'url'        => 'https://zhongliu.oss-cn-hongkong.aliyuncs.com',
+            'url'        => 'http://zhongliu.oss-cn-hongkong.aliyuncs.com',
         ],
     ],
 

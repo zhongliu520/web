@@ -50,5 +50,11 @@ export default{
     // 获取用户列表
     getUserList(data) {
         return fetch(`/admin/users/list`, data);
+    },
+    createUser (data) {
+        return fetch(`/admin/users/create`, data, "POST");
+    },
+    saveUser (data, id) {
+        return fetch(`/admin/users/save/${id}`, data, "POST");
     }
 }
