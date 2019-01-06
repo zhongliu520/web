@@ -7,7 +7,7 @@ use Exception;
 class DownloadFile
 {
 
-    function down_images($url, $key=0) {
+    function down_images($url, $key=0, $dir="my/images/") {
 
         try {
             $header = array("Connection: Keep-Alive", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Pragma: no-cache", "Accept-Language: zh-Hans-CN,zh-Hans;q=0.8,en-US;q=0.5,en;q=0.3", "User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:29.0) Gecko/20100101 Firefox/29.0");
@@ -19,6 +19,9 @@ class DownloadFile
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($ch, CURLOPT_ENCODING, 'gzip,deflate');
+
+            curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,false);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
             $content = curl_exec($ch);
             $curlinfo = curl_getinfo($ch);
             curl_close($ch);
@@ -37,21 +40,19 @@ class DownloadFile
                 }
 
                 $filename = ($key>0? $key: (date("YmdHis") . uniqid())) . $exf;//这里默认是当前文件夹，可以加路径的 可以改为$filepath = '../'.$filename
-                $dir = "images/";
+                $dir = storage_path($dir);
 
-                if (!is_dir(storage_path("my/" . $dir))) {
-                    mkdir(storage_path("my/" . $dir), 755, true);
+                if (!is_dir($dir)) {
+                    mkdir($dir, 755, true);
                 }
-
-                $dir = storage_path("my/" . $dir);
 
                 $filepath = $dir.$filename;
                 file_put_contents($filepath, $content);
             }else {
-                throw new Exception("下载失败!");
+                logger('App\Services\Common', [json_encode($url)]);
             }
         } catch (Exception $e) {
-
+            logger('App\Services\Common', [json_encode($url), "下载失败!"]);
             throw new Exception("下载失败!");
         }
     }

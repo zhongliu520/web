@@ -42,9 +42,19 @@ class DownloadFile extends Command
 
         try {
 
-            $downloadFile = new \App\Services\Common\DownloadFile();
-            logger($url);
-            $downloadFile->down_images($url, "11342");
+            $rows = file_get_contents($url);
+
+            preg_match_all("/<img([^\<\>]*?)src=[\"\'](.*?)[\"\']([^\<\>]*?)>/", $rows, $arr);
+
+            $rows = $arr[2];
+            $rowsCollect = collect($rows);
+            $rowsCollect->map(function ($item, $key) {
+                if(json_encode($item)) {
+                    $downloadFile = new \App\Services\Common\DownloadFile();
+                    $downloadFile->down_images($item, (intval($key)+1), "my/img/");
+                }
+            });
+
         } catch (Exception $e) {
             return $this->error($e->getMessage());
         }
