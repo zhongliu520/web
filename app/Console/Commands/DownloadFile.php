@@ -50,6 +50,7 @@ class DownloadFile extends Command
             $rowsCollect = collect($rows);
             $rowsCollect->map(function ($item, $key) {
                 if(json_encode($item)) {
+                    logger('App\Console\Commands\DownloadFile', [$item]);
                     $downloadFile = new \App\Services\Common\DownloadFile();
                     $downloadFile->down_images($item, (intval($key)+1), "my/img/");
                 }

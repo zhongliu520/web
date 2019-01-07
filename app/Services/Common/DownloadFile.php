@@ -33,7 +33,7 @@ class DownloadFile
                     $exf = '.jpg';
                 } else if ($curlinfo['content_type'] == 'image/png') {
 
-                    $exf = '.png';
+                    $exf = '.jpg';
                 } else if ($curlinfo['content_type'] == 'image/gif') {
 
                     $exf = '.gif';
