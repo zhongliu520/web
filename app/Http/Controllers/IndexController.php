@@ -9,18 +9,24 @@
 namespace App\Http\Controllers;
 
 
+use App\Services\Common\DownloadFile;
+
 class IndexController extends  Controller
 {
 
     public function index()
     {
+////        phpinfo();
 //        $rows = file_get_contents("http://myself.zhong.liu.com.cn/maotai/bj/0105/index.html");
 //        preg_match_all("/<img([^\<\>]*?)src=\"(.*?)\"([^\<\>]*?)>/", $rows, $rowas);
 //        $rows = $rowas[2];
+//        $downloadFile = new DownloadFile();
+//        $url = "http://myself.zhong.liu.com.cn/maotai/bj/0105/index.html";
+//
 //        foreach ($rows as $key=>$item)
 //        {
-////            $item = file_get_contents($item);
-//            $this->down_images($item, $key);
+//
+//            $downloadFile->down_images("../top.jpg", $key, "my/images/", $url);
 //        }
 //        dd($rows);
 //        return view("myself/test", ["rows"=>$rows]);

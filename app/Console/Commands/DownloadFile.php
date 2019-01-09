@@ -48,11 +48,11 @@ class DownloadFile extends Command
 
             $rows = $arr[2];
             $rowsCollect = collect($rows);
-            $rowsCollect->map(function ($item, $key) {
+            $rowsCollect->map(function ($item, $key) use ($url) {
                 if(json_encode($item)) {
                     logger('App\Console\Commands\DownloadFile', [$item]);
                     $downloadFile = new \App\Services\Common\DownloadFile();
-                    $downloadFile->down_images($item, (intval($key)+1), "my/img/");
+                    $downloadFile->down_images($item, (intval($key)+1), "my/img/", $url);
                 }
             });
 
