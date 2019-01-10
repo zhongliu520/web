@@ -16,6 +16,15 @@ class IndexController extends  Controller
 
     public function index()
     {
+//        $check = 12;
+//        switch ($check) {
+//            case (23 || 11):
+//                dd(1234);
+//                break;
+//            default:
+//                dd(22222);
+//                break;
+//        }
 ////        phpinfo();
 //        $rows = file_get_contents("http://myself.zhong.liu.com.cn/maotai/bj/0105/index.html");
 //        preg_match_all("/<img([^\<\>]*?)src=\"(.*?)\"([^\<\>]*?)>/", $rows, $rowas);
