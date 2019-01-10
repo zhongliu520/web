@@ -47,14 +47,17 @@ class DownloadFile extends Command
             preg_match_all("/<img([^\<\>]*?)src=[\"\'](.*?)[\"\']([^\<\>]*?)>/", $rows, $arr);
 
             $rows = $arr[2];
-            $rowsCollect = collect($rows);
-            $rowsCollect->map(function ($item, $key) use ($url) {
-                if(json_encode($item)) {
+            logger('App\Console\Commands\DownloadFile', [json_encode($rows)]);
+
+            $count = 1;
+            foreach ($rows as $item) {
+                if($item && json_encode($item)) {
                     logger('App\Console\Commands\DownloadFile', [$item]);
                     $downloadFile = new \App\Services\Common\DownloadFile();
-                    $downloadFile->down_images($item, (intval($key)+1), "my/img/", $url);
+                    $downloadFile->down_images($item, $count, "my/img/", $url);
+                    $count++;
                 }
-            });
+            }
 
         } catch (Exception $e) {
             return $this->error($e->getMessage());
