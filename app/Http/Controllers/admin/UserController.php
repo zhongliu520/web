@@ -96,7 +96,7 @@ class UserController extends Controller
         $repeatPassword = array_get($data, "repeatPassword", "");
         $headPortrait = array_get($data, "headPortrait", "");
 
-        if(Users::where(function ($query) use ($name, $email) {
+        if(User::where(function ($query) use ($name, $email) {
             $query->orWhere("email", $email);
             $query->orWhere("name", $name);
         })->first()) {
@@ -109,7 +109,7 @@ class UserController extends Controller
 
         try {
 
-            User::create([
+            Users::create([
                 'name' => $name,
                 'email' => $email,
                 'password' => bcrypt($password),
@@ -153,7 +153,7 @@ class UserController extends Controller
         $repeatPassword = array_get($data, "repeatPassword", "");
         $headPortrait = array_get($data, "headPortrait", "");
 
-        if(Users::where("id", "!=", $id)->where(function ($query) use ($name, $email) {
+        if(User::where("id", "!=", $id)->where(function ($query) use ($name, $email) {
             $query->orWhere("email", $email);
             $query->orWhere("name", $name);
         })->first()) {
