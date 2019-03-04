@@ -171,6 +171,8 @@ return [
 
         App\Providers\ApplicationServiceProvider::class,
         ApolloPY\Flysystem\AliyunOss\AliyunOssServiceProvider::class,
+
+        Ixudra\Curl\CurlServiceProvider::class,
     ],
 
     /*
@@ -220,6 +222,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'AjaxService' => \App\Facades\Admin\Common\Asynchronous\AjaxFacade::class,
+
+
+        'Curl'          => Ixudra\Curl\Facades\Curl::class,
 
     ],
 

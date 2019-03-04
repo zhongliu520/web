@@ -25,6 +25,12 @@ Route::get('index', 'IndexController@index');
 Route::get('index', 'IndexController@index');
 
 
+Route::group(['prefix' => 'myself', 'namespace' => 'myself'], function(){
+    Route::get('index', 'IndexController@index');
+
+});
+
+
 Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
     Route::get('captcha-src', 'UserController@getCaptchaSrc');
 

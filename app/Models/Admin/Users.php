@@ -8,17 +8,14 @@
 
 namespace App\Models\Admin;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Users extends Authenticatable
+class Users extends BaseModel
 {
-    use Notifiable,SoftDeletes;
+    use SoftDeletes;
 
     protected $table="users";
 
-//    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
